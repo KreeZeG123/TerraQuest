@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+    <!-- Ajouter le CSS de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Ajouter le CSS de Leaflet Routing Machine -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+    <!-- Ajouter le CSS de Leaflet Google Mutant -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.gridlayer.googlemutant/leaflet.gridlayer.googlemutant.css" />
+
+    <!-- Ajouter la bibliothèque Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Ajouter Leaflet Routing Machine -->
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Ajouter Leaflet Google Mutant pour Google Maps -->
+    <script src="https://unpkg.com/leaflet.gridlayer.googlemutant/leaflet.gridlayer.googlemutant.js"></script>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{%  block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+
+                function generateMapEmbed(startLat, startLng, endLat, endLng) {
+                    return `https://www.google.com/maps/embed?pb=!1m20!1m8!1m3!1d648.4023584323658!2d${startLng}!3d${startLat}!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d${startLat}!2d${startLng}!4m3!3m2!1d${endLat}!2d${endLng}!5e1!3m2!1sfr!2sfr`;
+                }
+
+                var startLat = {{ latDep }}, startLng = {{ lngDep }};
+                var endLat = {{ latDest }}, endLng = {{ lngDest }};
+                var iframeURL = generateMapEmbed(startLat, startLng, endLat, endLng);
+
+                // Insérer l'iframe avec l'URL générée dynamiquement
+                document.getElementById('map-embed').src = iframeURL;
+
+            }, 100);
+        });
+
+
+
+
+
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('select_area') }}">Retours</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
+    </nav>
+    <main class="d-flex flex-column justify-content-center align-items-center py-5 gap-4 min-vh-100">
+        <h2>Choisissez votre zone</h2>
+        <iframe id="map-embed" class="w-75" style="height: 45dvh; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </main>
+    <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">J'y suis</a>
+    </footer>
+{% endblock %}

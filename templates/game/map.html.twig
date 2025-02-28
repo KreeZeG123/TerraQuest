@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () { // Délai pour s'assurer du chargement complet du DOM
+                var center = [ {{ zone['latGPS'] }} , {{ zone['lngGPS'] }} ];
+                var zoom = 19;
+
+                window.map = L.map('map').setView(center, zoom);
+
+                L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    attribution: '&copy; Google Maps',
+                    maxZoom: 20
+                }).addTo(map);
+
+                function generatePopUp(title) {
+                    return title;
+                }
+
+                var hotspots = [
+                    {% for hotspot in hotspots %}
+                    {
+                        lat: {{ hotspot.lat }},
+                        lng: {{ hotspot.lng }},
+                        popup: "{{ hotspot.title }}"
+                    },
+                    {% endfor %}
+                ];
+
+                hotspots.forEach(hotspot => {
+                    L.marker([hotspot.lat, hotspot.lng])
+                        .addTo(map)
+                        .bindPopup(hotspot.popup);
+                });
+
+                map.on('click', function(e) {
+                    var lat = e.latlng.lat.toFixed(6); // Latitude arrondie à 6 décimales
+                    var lng = e.latlng.lng.toFixed(6); // Longitude arrondie à 6 décimales
+
+                    alert(lat + ", " + lng);
+                });
+
+                setTimeout(function () {
+                    map.invalidateSize(); // Fixe les problèmes d'affichage
+                }, 500);
+            }, 100);
+        });
+    </script>
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retour</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-1 mt-5 gap-4" style="min-height: 90dvh">
+        <h2>Choisissez votre zone</h2>
+        <div class="w-75 h" id="map" style="height: 65dvh"></div>
+    </main>
+
+{% endblock %}

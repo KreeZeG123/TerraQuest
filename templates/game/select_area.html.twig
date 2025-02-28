@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () { // Délai pour s'assurer du chargement complet du DOM
+                var center = [47.5013, -0.5700];
+                var zoom = 17;
+
+                window.map = L.map('map').setView(center, zoom);
+
+                L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    attribution: '&copy; Google Maps',
+                    maxZoom: 20
+                }).addTo(map);
+
+                function generatePopUp(title, link) {
+                    return "<a class='btn btn-primary text-white' href='" + link + "'>" + title + "</a>";
+                }
+
+                var hotspots = [
+                    {% for hotspot in hotspots %}
+                    {
+                        lat: {{ hotspot.lat }},
+                        lng: {{ hotspot.lng }},
+                        popup: generatePopUp("{{ hotspot.title }}", "{{ path('reach_area', {slug: hotspot.slug}) }}")
+                    },
+                    {% endfor %}
+                ];
+
+                hotspots.forEach(hotspot => {
+                    L.marker([hotspot.lat, hotspot.lng])
+                        .addTo(map)
+                        .bindPopup(hotspot.popup);
+                });
+
+                setTimeout(function () {
+                    map.invalidateSize(); // Fixe les problèmes d'affichage
+                }, 500);
+            }, 100);
+        });
+    </script>
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Retour</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-1 mt-5 gap-4" style="min-height: 90dvh">
+        <h2>Choisissez votre zone</h2>
+        <div class="w-75 h" id="map" style="height: 65dvh"></div>
+    </main>
+
+{% endblock %}

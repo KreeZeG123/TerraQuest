@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Retour</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-1 mt-5 gap-4" style="min-height: 90dvh">
+        <h2>Zone Complétée : {{ game['areasCompleted'] }} / {{ game['numberOfAreas'] }}</h2>
+        <div class="card w-75">
+            <div class="card-header text-center">
+                Trouvez la plante !
+            </div>
+            <div class="card-body">
+                {% if ongoingChallenge.challenge.type == 'text' %}
+                    <p class="card-text">{{ ongoingChallenge.challenge.description }}</p>
+                {% else %}
+                    <img class="card-img-bottom" src="{{ asset( ongoingChallenge.challenge.image ) }}" alt="Image espèce à trouver">
+                {% endif %}
+            </div>
+        </div>
+        <div class="card w-75 d-flex flex-row p-2 justify-content-center">
+            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastHint }}</a>
+            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="">. . .</a>
+        </div>
+        <div class="card w-75 d-flex flex-row p-2 justify-content-center">
+            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastScannedSpecies }}</a>
+            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="">. . .</a>
+        </div>
+        <div class="w-75 d-flex justify-content-between">
+            <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
+                <a href="{{ path('play.map', {gameID: gameID}) }}" class="btn btn-primary">Carte</a>
+                <p>Carte</p>
+            </div>
+            <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
+                <a href="" class="btn btn-primary">Explication</a>
+                <p>Explication</p>
+            </div>
+            <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
+                <a href="" class="btn btn-primary">Scanner QR</a>
+                <p>Scanner QR</p>
+            </div>
+        </div>
+
+
+    </main>
+
+{% endblock %}
