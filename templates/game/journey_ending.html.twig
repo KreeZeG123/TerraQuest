@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Accueil</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-2 px-5 nav-margin-top" style="min-height: 90dvh">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8 d-flex flex-column align-items-end">
+                <div class="d-flex flex-column justify-content-end align-items-center bubble bubble-left">
+                    <h4>
+                        Félicitations, jeune botaniste ! Tu as trouvé la dernière plante recherchée !<br>
+                        <br>
+                        Grâce à toi, j’ai enfin retrouvé toutes les informations que j’avais perdues. Ton aide a été précieuse, et je te remercie du fond du cœur pour ta détermination et ton esprit d’aventure.<br>
+                        <br>
+                        Si tu es encore prêt à relever un dernier défi, voici un derniez quiz !
+                    </h4>
+                    <a class="btn btn-primary" href="{{ path('play.quiz', {gameID: gameID}) }}">Quiz</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-start">
+                <img src="{{ asset('images/prof-removebg-reverse.png') }}" class="img-fluid" style="width: 25rem; height: 25rem" alt="Professeur">
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

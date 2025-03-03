@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .answer {
+            width: 400px;
+            min-height: 3rem;
+        }
+        .correct {
+            background-color: #28a745 !important;
+            color: white;
+        }
+        .incorrect {
+            background-color: #dc3545 !important;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const answerButtons = document.querySelectorAll(".answer");
+            const nextSection = document.getElementById("next-section");
+
+            answerButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const correctAnswer = "{{ quiz.correctAnswer }}";
+                    answerButtons.forEach(btn => {
+                        if (btn.innerText.trim() === correctAnswer.trim()) {
+                            btn.classList.add("correct");
+                        } else {
+                            btn.classList.add("incorrect");
+                        }
+                    });
+                    nextSection.classList.remove("d-none");
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3"
+           href="{{ path( (journeyEnding ? 'play.journey_ending' : 'play.correct_guess'), {gameID: gameID}) }}"
+        >
+            Retour
+        </a>
+    </nav>
+    <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
+        <h4>{{ quiz.question }}</h4>
+        <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+            {% for answer in quiz.answers %}
+                <button class="btn btn-primary answer" href="#">{{ answer }}</button>
+            {% endfor %}
+        </div>
+        <div id="next-section" class="d-flex flex-column justify-content-center align-items-center gap-2 w-100 d-none">
+            <hr class="hr-rounded w-50">
+            <a class="btn btn-primary" href="#">Zone suivante</a>
+        </div>
+    </main>
+{% endblock %}
+

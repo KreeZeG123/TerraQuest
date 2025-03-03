@@ -135,14 +135,7 @@
     animation-fill-mode:both;
     animation-name:bsb-zoomIn
 }
-.bsb-hover-pull{
-    transform:scaleX(1);
-    transform-style:preserve-3d;
-    transition:all .5s
-}
-.bsb-hover-pull:hover{
-    transform:scale3d(1.02,1.02,1.02)
-}
+
 .bsb-hover-push{
     transform:scaleX(1);
     transform-style:preserve-3d;
@@ -233,6 +226,8 @@
     padding-bottom:3rem;
     padding-top:3rem;
     height: 100dvh;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
 }
 @media(min-width:768px){
     .bsb-hero-1{

@@ -15,7 +15,7 @@
         <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
     </nav>
 
-    <main class="d-flex flex-column justify-content-center align-items-center py-1 mt-5 gap-4" style="min-height: 90dvh">
+    <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top" style="min-height: 90dvh">
         <h2>Zone Complétée : {{ game['areasCompleted'] }} / {{ game['numberOfAreas'] }}</h2>
         <div class="card w-75">
             <div class="card-header text-center">
@@ -31,11 +31,11 @@
         </div>
         <div class="card w-75 d-flex flex-row p-2 justify-content-center">
             <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastHint }}</a>
-            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="">. . .</a>
+            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="{{ path('play.hints', {gameID: gameID}) }}">. . .</a>
         </div>
         <div class="card w-75 d-flex flex-row p-2 justify-content-center">
             <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastScannedSpecies }}</a>
-            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="">. . .</a>
+            <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="{{ path('play.scanned_species', {gameID: gameID}) }}">. . .</a>
         </div>
         <div class="w-75 d-flex justify-content-between">
             <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
@@ -43,11 +43,11 @@
                 <p>Carte</p>
             </div>
             <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
-                <a href="" class="btn btn-primary">Explication</a>
+                <a href="{{ path('play.explanation', {gameID: gameID}) }}" class="btn btn-primary">Explication</a>
                 <p>Explication</p>
             </div>
             <div class="flex-grow-1 text-center" style="flex-basis: 33.33%;">
-                <a href="" class="btn btn-primary">Scanner QR</a>
+                <a href="{{ path('play.scanner', {gameID: gameID}) }}" class="btn btn-primary">Scanner QR</a>
                 <p>Scanner QR</p>
             </div>
         </div>

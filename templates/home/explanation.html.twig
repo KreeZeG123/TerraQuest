@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        {% if gameID is not null %}
+            <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retour</a>
+        {% else %}
+            <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Retour</a>
+        {% endif %}
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-2 px-5 gap-4 nav-margin-top">
+        <h2>Explication</h2>
+        <div class="mt-4">
+            <!-- 1ère bulle (gauche) -->
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8 d-flex flex-column align-items-end">
+                    <div class="bubble bubble-left">
+                        <h4>
+                            Oh non ! Une catastrophe ! Tous mes travaux sur les plantes et les animaux du parc ont disparu !
+                            <br><br>
+                            J’avais passé des années à les étudier… et maintenant, tout est perdu.
+                            <br><br>
+                            Mais peut-être que vous pouvez m’aider à les retrouver ?
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex flex-column align-items-start">
+                    <img src="{{ asset('images/prof-removebg-reverse.png') }}" class="img-fluid" style="width: 25rem; height: 25rem" alt="Professeur">
+                </div>
+            </div>
+
+            <!-- 2ème bulle (droite) -->
+            <div class="row align-items-center mb-4">
+                <div class="col-md-4 d-flex flex-column align-items-end">
+                    <img src="{{ asset('images/prof-removebg-reverse.png') }}" class="img-fluid" style="width: 25rem; height: 25rem" alt="Professeur">
+                </div>
+                <div class="col-md-8 flex-column align-items-start">
+                    <div class="bubble bubble-right">
+                        <h4>
+                            📍 Explorez le parc avec l’aide de la carte interactive.
+                            <br><br>
+                            📸 Scannez les QR codes placés près des plantes et des animaux pour récolter des informations sur eux.
+                            <br><br>
+                            🧠 Résolvez les énigmes que je vous donnerai pour valider vos découvertes.
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3ème bulle (gauche) -->
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8 d-flex flex-column align-items-end">
+                    <div class="bubble bubble-left">
+                        <h4>
+                            Chaque espèce trouvée s’ajoutera à votre historique.
+                            <br><br>
+                            Et si jamais vous êtes bloqué, pas de panique ! Je peux vous donner des indices pour vous aider.
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex flex-column align-items-start">
+                    <img src="{{ asset('images/prof-removebg-reverse.png') }}" class="img-fluid" style="width: 25rem; height: 25rem" alt="Professeur">
+                </div>
+            </div>
+
+            <!-- 4ème bulle (droite) -->
+            <div class="row align-items-center">
+                <div class="col-md-4 d-flex flex-column align-items-end">
+                    <img src="{{ asset('images/prof-removebg-reverse.png') }}" class="img-fluid" style="width: 25rem; height: 25rem" alt="Professeur">
+                </div>
+                <div class="col-md-8 d-flex flex-column align-items-start">
+                    <div class="bubble bubble-right">
+                        <h4>
+                            Alors, êtes-vous prêt pour cette mission scientifique ?
+                            <br><br>
+                            Ensemble, retrouvons toutes ces précieuses informations !
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}

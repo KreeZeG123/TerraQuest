@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Jeu</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-2 px-5 nav-margin-top" style="min-height: 90dvh">
+        <div class="d-flex flex-column gap-4">
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 gap-3">
+                <h2>Dommage !</h2>
+                <h3>L'espèce que vous avez choisie n'est pas la bonne !</h3>
+                <h4>Pensez à lire attentivement les informations sur toutes les espèces de la zone !</h4>
+            </div>
+            <hr class="hr-rounded">
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 gap-3">
+                <h3>Besoin d'un coup de pouce ? N'hésitez pas à demander un indice !</h3>
+                <a class="btn btn-primary" href="">Indice</a>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

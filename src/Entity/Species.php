@@ -143,4 +143,14 @@ class Species
 
         return $this;
     }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scanner QR{% endblock %}
+
+{% block importLink %}
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                const video = document.getElementById('video');
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
+
+                // Demander l'accès à la caméra
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } } })
+                    .then(stream => {
+                        video.srcObject = stream;
+                        video.setAttribute("playsinline", true); // Requis pour les appareils mobiles
+                        video.play();
+                        video.onloadeddata = function() {
+                            // Une fois que la vidéo est prête, on commence la lecture du QR Code
+                            requestAnimationFrame(scanQRCode);
+                        };
+                    })
+                    .catch(err => {
+                        alert("Erreur d'accès à la caméra: " + err.message)
+                    });
+
+                function scanQRCode() {
+                    // Vérifier si la vidéo a bien une largeur et une hauteur valides
+                    if (video.videoWidth === 0 || video.videoHeight === 0) {
+                        requestAnimationFrame(scanQRCode); // Réessayer si la vidéo n'est pas prête
+                        return;
+                    }
+
+                    // Dessiner le contenu de la vidéo sur le canvas
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    // Analyser l'image du canvas pour détecter un QR code
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                    if (code) {
+                        const data = encodeURIComponent(code.data)
+                        const urlTemplate = "{{ path('play.species_information', {gameID: gameID, speciesID: '__SPECIESID__'}) }}";
+                        const url = urlTemplate.replace('__SPECIESID__', data);
+                        window.location.href = url;
+                    }
+
+                    // Appel récursif pour scanner en continu
+                    requestAnimationFrame(scanQRCode);
+                }
+            },500)
+        });
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top justify-content-between">
+        {% if gameID == "" %}
+            <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Retour</a>
+        {% else %}
+            <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Jeu</a>
+        {% endif %}
+        <h1 class="text-white mx-auto">Scanner un QR Code</h1>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center gap-4 pt-2 nav-margin-top">
+
+        <video id="video" style="width: 100%; height: 100%;" autoplay></video>
+        <canvas id="canvas" style="display:none; width: 100%; height: 100%;"></canvas>
+    </main>
+
+{% endblock %}

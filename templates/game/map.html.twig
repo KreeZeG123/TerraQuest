@@ -60,10 +60,10 @@
 
 {% block body %}
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retour</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Jeu</a>
     </nav>
 
-    <main class="d-flex flex-column justify-content-center align-items-center py-1 mt-5 gap-4" style="min-height: 90dvh">
+    <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top" style="min-height: 90dvh">
         <h2>Choisissez votre zone</h2>
         <div class="w-75 h" id="map" style="height: 65dvh"></div>
     </main>

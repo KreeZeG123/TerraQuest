@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Quitter</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-2 px-5 nav-margin-top" style="min-height: 90dvh">
+        <div class="d-flex flex-column gap-4">
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 gap-3">
+                <h2>Bravo !</h2>
+                <h3>Vous avez trouvé la bonne espèce !</h3>
+            </div>
+            <hr class="hr-rounded">
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 gap-3">
+                <h3>Testez-vous avec un quiz sur cette espèce !</h3>
+                <a class="btn btn-primary" href="{{ path('play.quiz', {gameID: gameID}) }}">Quiz</a>
+            </div>
+            <hr class="hr-rounded">
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 gap-3">
+                <h3>Passez à la zone suivante</h3>
+                <a class="btn btn-primary" href="">Zone suivante</a>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

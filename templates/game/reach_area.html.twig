@@ -60,9 +60,11 @@
         <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('select_area') }}">Retours</a>
         <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
     </nav>
-    <main class="d-flex flex-column justify-content-center align-items-center py-5 gap-4 min-vh-100">
-        <h2>Choisissez votre zone</h2>
-        <iframe id="map-embed" class="w-75" style="height: 45dvh; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
+        <div class="w-75 h-75 text-center">
+            <h2>Choisissez votre zone</h2>
+            <iframe id="map-embed" class="w-75" style="height: 45dvh; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </main>
     <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
         <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">J'y suis</a>

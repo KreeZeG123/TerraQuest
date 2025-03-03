@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{%  block javascripts %}
+    <
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retours</a>
+    </nav>
+    <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
+        <div class="d-flex flex-column w-75 gap-3">
+            <h2 class="text-center">{{ species.latinName }}</h2>
+            <div>
+                {% for key,image in species.images %}
+                    <img src="{{ asset(image) }}" alt="Photo n°{{ key }}">
+                {% endfor %}
+            </div>
+            <h3><strong>Nom vulgaire : </strong>{{ species.commonName }}</h3>
+            <h3><strong>Nom latin : </strong>{{ species.latinName }}</h3>
+            <h3><strong>Origine : </strong>{{ species.origin }}</h3>
+            <h3><strong>Caractéristiques : </strong></h3>
+            <p>* {{ species.characteristics | replace({'\n': '<br> * '}) | raw }}</p>
+            <h3><strong>Utilité/Vertu : </strong>{{ species.utility }}</h3>
+            <h3><strong>Conditions de culture :</strong></h3>
+            <p>* {{ species.characteristics | replace({'\n': '<br> * '}) | raw }}</p>
+        </div>
+    </main>
+    <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Valider comme réponse</a>
+    </footer>
+{% endblock %}
