@@ -13,7 +13,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () { // Délai pour s'assurer du chargement complet du DOM
-                var center = [ {{ zone['latGPS'] }} , {{ zone['lngGPS'] }} ];
+                var center = [ {{ areaLat }} , {{ areaLng }} ];
                 var zoom = 19;
 
                 window.map = L.map('map').setView(center, zoom);
@@ -43,13 +43,6 @@
                         .bindPopup(hotspot.popup);
                 });
 
-                map.on('click', function(e) {
-                    var lat = e.latlng.lat.toFixed(6); // Latitude arrondie à 6 décimales
-                    var lng = e.latlng.lng.toFixed(6); // Longitude arrondie à 6 décimales
-
-                    alert(lat + ", " + lng);
-                });
-
                 setTimeout(function () {
                     map.invalidateSize(); // Fixe les problèmes d'affichage
                 }, 500);
@@ -64,7 +57,7 @@
     </nav>
 
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top" style="min-height: 90dvh">
-        <h2>Choisissez votre zone</h2>
+        <h2>Dirigez-vous vers une espèce de la zone</h2>
         <div class="w-75 h" id="map" style="height: 65dvh"></div>
     </main>
 

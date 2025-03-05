@@ -32,25 +32,51 @@
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
 
+                // Fonction pour générer l'URL de l'iframe de Google Maps
                 function generateMapEmbed(startLat, startLng, endLat, endLng) {
                     return `https://www.google.com/maps/embed?pb=!1m20!1m8!1m3!1d648.4023584323658!2d${startLng}!3d${startLat}!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d${startLat}!2d${startLng}!4m3!3m2!1d${endLat}!2d${endLng}!5e1!3m2!1sfr!2sfr`;
                 }
 
-                var startLat = {{ latDep }}, startLng = {{ lngDep }};
-                var endLat = {{ latDest }}, endLng = {{ lngDest }};
-                var iframeURL = generateMapEmbed(startLat, startLng, endLat, endLng);
+                // Coordonnées de départ par défaut
+                const defaultLat = 47.500190679765005;
+                const defaultLng = -0.5706363950740977;
 
-                // Insérer l'iframe avec l'URL générée dynamiquement
-                document.getElementById('map-embed').src = iframeURL;
+                // Fonction pour récupérer la position de l'utilisateur
+                function getUserLocation() {
+                    if (navigator.geolocation) {
+                        // Demander la géolocalisation de l'utilisateur
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var userLat = position.coords.latitude;
+                            var userLng = position.coords.longitude;
+
+                            // Utiliser les coordonnées de l'utilisateur
+                            updateMap(userLat, userLng);
+
+                        }, function(error) {
+                            // En cas d'erreur, utiliser les coordonnées par défaut
+                            updateMap(defaultLat, defaultLng);
+                        });
+                    } else {
+                        // Si la géolocalisation n'est pas supportée, utiliser les coordonnées par défaut
+                        updateMap(defaultLat, defaultLng);
+                    }
+                }
+
+                // Fonction pour mettre à jour la carte avec les coordonnées
+                function updateMap(startLat, startLng) {
+                    var endLat = {{ hotspotDest.lat }};
+                    var endLng = {{ hotspotDest.lng }};
+                    var iframeURL = generateMapEmbed(startLat, startLng, endLat, endLng);
+
+                    // Insérer l'iframe avec l'URL générée dynamiquement
+                    document.getElementById('map-embed').src = iframeURL;
+                }
+
+                // Appeler la fonction pour récupérer la position de l'utilisateur
+                getUserLocation();
 
             }, 100);
         });
-
-
-
-
-
-
 
     </script>
 {% endblock %}

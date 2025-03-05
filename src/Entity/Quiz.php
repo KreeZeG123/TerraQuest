@@ -15,9 +15,6 @@ class Quiz
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Species $species = null;
 
     #[ORM\Column(length: 255)]
     private string $question = "";
@@ -27,6 +24,10 @@ class Quiz
 
     #[ORM\Column(length: 255)]
     private string $correctAnswer = "";
+
+    #[ORM\ManyToOne(inversedBy: 'quizzes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Species $species = null;
 
     public function getId(): ?int
     {
@@ -38,9 +39,10 @@ class Quiz
         return $this->species;
     }
 
-    public function setSpecies(?Species $species): static
+    public function setSpecies(Species $species): static
     {
         $this->species = $species;
+        $species->addQuiz($this);
 
         return $this;
     }

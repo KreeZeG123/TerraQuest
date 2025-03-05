@@ -16,16 +16,16 @@
 
 {% block body %}
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retours</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Jeu</a>
     </nav>
     <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
         <h2>Historique des Espèces Scannées</h2>
         <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-            {% for species in scannedSpecies %}
+            {% for species in allScannedSpecies %}
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 card bg-primary p-4" style="width: 60dvw">
-                    <h5 class="flex-grow-1 text-wrap text-center">{{ species['latinName'] }}</h5>
+                    <h5 class="flex-grow-1 text-wrap text-center">{{ species.latinName }}</h5>
                     <div class="ms-2 flex-shrink-0 align-content-center">
-                        <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.species_information', {gameID: gameID, speciesID: species['id']}) }}">?</a>
+                        <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.species_information', {gameID: gameID, speciesID: species.id}) }}">?</a>
                         <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.scanned_species', {gameID: gameID}) }}">V</a>
                     </div>
 

@@ -13,16 +13,27 @@
     </nav>
     <main class="d-flex flex-column align-items-center gap-2 py-2 px-5 nav-margin-top nav-margin-bottom" style="margin: 5rem auto">
         <h2>Parties</h2>
-        {% if true %}
+        {% if connected %}
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-                {% for game in ["Zone 01/11 \"Les plantes carnivores\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024", "Zone 11/11 \"Le jardin sans eau\" - 04/12/2024"] %}
-                    <a class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem">{{ game }}</a>
+                {% for game in games %}
+                    <a
+                            class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem"
+                            href="{{ path('play', {gameID: game.gameID}) }}"
+                    >
+                        {{ game.title }}
+                    </a>
                 {% endfor %}
             </div>
         {% else %}
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-                <a class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem">Connectez-vous pour charger vos parties</a>
+                <a
+                    class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem"
+                    href="{{ path('app_login', { targetPath: app.request.uri|url_encode }) }}"
+                >
+                    Connectez-vous pour charger vos parties
+                </a>
             </div>
+
         {% endif %}
     </main>
     <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">

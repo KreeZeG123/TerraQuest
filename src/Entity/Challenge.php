@@ -29,7 +29,7 @@ class Challenge
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 4095, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -37,6 +37,10 @@ class Challenge
 
     #[ORM\Column(type: Types::ARRAY)]
     private array $hints = [];
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Species $speciesToGuess = null;
 
     public function __construct()
     {
@@ -128,6 +132,18 @@ class Challenge
     public function setHints(array $hints): static
     {
         $this->hints = $hints;
+
+        return $this;
+    }
+
+    public function getSpeciesToGuess(): ?Species
+    {
+        return $this->speciesToGuess;
+    }
+
+    public function setSpeciesToGuess(?Species $speciesToGuess): static
+    {
+        $this->speciesToGuess = $speciesToGuess;
 
         return $this;
     }

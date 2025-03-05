@@ -42,9 +42,16 @@ class Area
     #[ORM\OneToMany(targetEntity: Challenge::class, mappedBy: 'area', orphanRemoval: true)]
     private Collection $challenges;
 
+    /**
+     * @var Collection<int, Species>
+     */
+    #[ORM\OneToMany(targetEntity: Species::class, mappedBy: 'area')]
+    private Collection $species;
+
     public function __construct()
     {
         $this->challenges = new ArrayCollection();
+        $this->species = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +155,36 @@ class Area
             // set the owning side to null (unless already changed)
             if ($challenge->getArea() === $this) {
                 $challenge->setArea(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Species>
+     */
+    public function getSpecies(): Collection
+    {
+        return $this->species;
+    }
+
+    public function addSpecies(Species $species): static
+    {
+        if (!$this->species->contains($species)) {
+            $this->species->add($species);
+            $species->setArea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecies(Species $species): static
+    {
+        if ($this->species->removeElement($species)) {
+            // set the owning side to null (unless already changed)
+            if ($species->getArea() === $this) {
+                $species->setArea(null);
             }
         }
 

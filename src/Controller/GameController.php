@@ -2,14 +2,27 @@
 
 namespace App\Controller;
 
+use App\DTO\HotspotDTO;
+use App\DTO\OngoingChallengeDTO;
+use App\DTO\OngoingGameDTO;
+use App\DTO\ScannedSpeciesDTO;
+use App\Entity\Area;
 use App\Entity\Challenge;
+use App\Entity\Game;
+use App\Entity\Journey;
 use App\Entity\OngoingChallenge;
 use App\Entity\Quiz;
 use App\Entity\Species;
+use App\Repository\AreaRepository;
+use App\Repository\GameRepository;
+use App\Repository\JourneyRepository;
+use App\Repository\SpeciesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use function Symfony\Component\String\s;
+use function Symfony\Component\Translation\t;
 
 final class GameController extends AbstractController
 {
@@ -120,16 +133,55 @@ final class GameController extends AbstractController
      */
 
     #[Route('/parties', name: 'games')]
-    public function games(): Response
+    public function games(GameRepository $gameRepository): Response
     {
-        return $this->render('game/games.html.twig');
+
+        $isConnected = false;
+        $games = [];
+
+        $user = $this->getUser();
+        if ($user !== null) {
+            $games = $gameRepository->findOngoingGames($user);
+            $isConnected = true;
+        }
+
+        $ongoingGames = array_map(function (Game $g): OngoingGameDTO {
+            $title = "Zone " . $g->getNumberOfAreasCompleted()+1 . "/" . $g->getNumberOfAreas() .
+                " \"" .
+                $g->getOngoingChallenge()->getChallenge()->getArea()->getTitle() .
+                "\" - " .
+                ($g->getUpdatedAt() ? $g->getUpdatedAt()->format("d/m/Y") : "Date inconnue")
+            ;
+
+            return new OngoingGameDTO(
+                title: $title,
+                gameID: $g->getId()
+            );
+        }, $games);
+
+        return $this->render('game/games.html.twig', [
+            "connected" => $isConnected,
+            "games" => $ongoingGames
+        ]);
     }
 
     #[Route('/selectionner-zone', name: 'select_area')]
-    public function select_area(): Response
+    public function select_area(JourneyRepository $journeyRepository): Response
     {
 
-        $hotspots = self::$zone;
+        /**
+         * @var $journey Journey
+         */
+        $journey = $journeyRepository->findOneBy(["title" => "Le Mystère du Professeur Verdant"]);
+
+        $hotspots = array_map(function (Area $a) {
+            return new HotspotDTO(
+                lat: $a->getLatGPS(),
+                lng: $a->getLngGPS(),
+                title: $a->getTitle(),
+                slug: $a->getSlug()
+            );
+        }, $journey->getAreas()->toArray());
 
         return $this->render('game/select_area.html.twig', [
             'hotspots' => $hotspots
@@ -137,17 +189,22 @@ final class GameController extends AbstractController
     }
 
     #[Route('/rejoindre-zone/{slug}/{id?}', name: 'reach_area', requirements: ['slug' => Requirement::ASCII_SLUG, 'id' => Requirement::DIGITS])]
-    public function reach_area(string $slug, ?string $id = ""): Response
+    public function reach_area(string $slug, AreaRepository $areaRepository, ?string $id = ""): Response
     {
-        $latDep = 47.500190679765005;
-        $lngDep = -0.5706363950740977;
+        /**
+         * @var $area Area
+         */
+        $area = $areaRepository->findOneBy(["slug" => $slug]);
 
-        $res = array_filter(self::$zone, function($z) use ($slug) {
-            return $z['slug'] === $slug;
-        });
-        $r = $res[array_key_first($res)];
-        $latDest = $r['lat'];
-        $lngDest = $r['lng'];
+        if (!$area) {
+            $this->addFlash("danger", "Zone Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+        $hotspotDest = new HotspotDTO(
+            lat: $area->getLatGPS(),
+            lng: $area->getLngGPS()
+        );
 
         if (!$id || $id === "") {
             # Créer une nouvelle partie
@@ -155,80 +212,68 @@ final class GameController extends AbstractController
         }
 
         return $this->render('game/reach_area.html.twig', [
-            'latDep' => $latDep,
-            'lngDep' => $lngDep,
-            'latDest' => $latDest,
-            'lngDest' => $lngDest,
+            'hotspotDest' => $hotspotDest,
             'gameID' => $id
         ]);
     }
 
     #[Route('/jeu/{gameID}/', name: 'play', requirements: ['gameID' => Requirement::DIGITS])]
-    public function play(int $gameID)
+    public function play(int $gameID, GameRepository $gameRepository)
     {
-        $game = [
-            'areasCompleted' => 0,
-            'numberOfAreas' => 11,
-            'userId' => ""
-        ];
 
-        $challenge = (new Challenge())
-            ->setType("text")
-            ->setDescription("Ah, cette plante carnivore… Je me souviens qu’elle a un mécanisme vraiment fascinant. Malheureusement, mes notes sont incomplètes ! Explore cette zone et utilise ton scanner pour m’aider.")
-            ->setImage("images/avatar-50x50.png");
 
-        $ongoingChallenge = (new OngoingChallenge())
-            ->setChallenge($challenge)
-            ->setLastHint("Aucun Indice")
-            ->setLastScannedSpecies("Aucune Espèce Scannée");
+        $game = $gameRepository->findOneBy(['id' => $gameID]);
 
+        if (!$game) {
+            $this->addFlash("danger", "Partie Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+
+        $ongoingChallenge = new OngoingChallengeDTO(
+            numberOfAreasCompleted: $game->getNumberOfAreasCompleted(),
+            numberOfAreas: $game->getNumberOfAreas(),
+            type: $game->getOngoingChallenge()->getChallenge()->getType(),
+            description: $game->getOngoingChallenge()->getChallenge()->getDescription(),
+            image: $game->getOngoingChallenge()->getChallenge()->getImage(),
+            lastHint: $game->getOngoingChallenge()->getLastHintTxt(),
+            lastScannedSpecies: $game->getOngoingChallenge()->getScannedSpecies()->last()->getLatinName()
+        );
 
         return $this->render( 'game/play.html.twig', [
-            'game' => $game,
             'ongoingChallenge' => $ongoingChallenge,
             'gameID' => $gameID
         ]);
     }
 
-    #[Route('/jeu/{gameID}/map', name: 'play.map', requirements: ['gameID' => Requirement::DIGITS])]
-    public function map(int $gameID)
+    #[Route('/jeu/{gameID}/carte', name: 'play.map', requirements: ['gameID' => Requirement::DIGITS])]
+    public function map(int $gameID, GameRepository $gameRepository)
     {
 
-        $zone = [
-            'latGPS' => 47.501177,
-            'lngGPS' => -0.569753,
-        ];
+        $game = $gameRepository->findOneBy(['id' => $gameID]);
 
-        $hotspots = [
-            [
-                'lat' => 47.50131,
-                'lng' => -0.56985,
-                'title' => "Espèce n°1",
-                'slug' => ''
-            ],
-            [
-                'lat' => 47.50131,
-                'lng' => -0.56957,
-                'title' => "Espèce n°2",
-                'slug' => ''
-            ],
-            [
-                'lat' => 47.50116,
-                'lng' => -0.56984,
-                'title' => "Espèce n°3",
-                'slug' => ''
-            ],
-            [
-                'lat' => 47.50101,
-                'lng' => -0.56974,
-                'title' => "Espèce n°4",
-                'slug' => ''
-            ],
-        ];
+        if (!$game) {
+            $this->addFlash("danger", "Partie Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+        $species = $game->getOngoingChallenge()->getChallenge()->getSpecies()->toArray();
+
+        $areaLat = $game->getOngoingChallenge()->getChallenge()->getArea()->getLatGPS();
+        $areaLng = $game->getOngoingChallenge()->getChallenge()->getArea()->getLngGPS();
+
+        $hotspots = array_map(function (Species $s): HotspotDTO {
+            return new HotspotDTO(
+                lat:$s->getLatGPS(),
+                lng:$s->getLngGPS(),
+                title: "Espèce n°".$s->getId()
+            );
+        }, $species);
 
         return $this->render('game/map.html.twig', [
             'hotspots' => $hotspots,
-            'zone' => $zone,
+            'areaLat' => $areaLat,
+            'areaLng' => $areaLng,
             'gameID' => $gameID,
         ]);
 
@@ -243,9 +288,16 @@ final class GameController extends AbstractController
     }
 
     #[Route('jeu/{gameID}/informations-espece/{speciesID}', name: 'play.species_information', requirements: ['gameID' => Requirement::DIGITS, 'speciesID' => '\d+|__SPECIESID__'])]
-    public function species_information(int $gameID, int $speciesID)
+    public function species_information(int $gameID, int $speciesID, SpeciesRepository $speciesRepository)
     {
-        $species = self::getAllSpecies()[$speciesID];
+        $species = $speciesRepository->findOneBy(['id' => $speciesID]);
+
+        if (!$species) {
+            $this->addFlash("danger", "L'espèce n°".$speciesID." n'existe pas");
+            return $this->redirectToRoute('play.scanner', [
+                'gameID' => $gameID
+            ]);
+        }
 
         return $this->render('game/species_information.html.twig', [
             'gameID' => $gameID,
@@ -264,21 +316,27 @@ final class GameController extends AbstractController
     #[Route('/jeu/{gameID}/reponse-fausse', name: 'play.wrong_guess', requirements: ['gameID' => Requirement::DIGITS])]
     public function wrong_guess(int $gameID) : Response
     {
+
         return $this->render('game/wrong_guess.html.twig', [
             'gameID' => $gameID
         ]);
     }
 
     #[Route('/jeu/{gameID}/indices', name: 'play.hints', requirements: ['gameID' => Requirement::DIGITS])]
-    public function hints(int $gameID) : Response
+    public function hints(int $gameID, GameRepository $gameRepository) : Response
     {
-        $hints = [
-            "Elle se nourrit d’insectes comme les autres ici, mais son piège est unique. Il ne ressemble ni à un tube ni à une surface collante.",
-            "Elle utilise un mécanisme en deux parties qui se referme sur sa proie. Un piège redoutable !",
-            "Son piège ne se déclenche qu’après plusieurs mouvements. Elle ne se laisse pas berner facilement.",
-            "Je me souviens, elle est incroyablement rapide. Ses 'mâchoires' capturent ses proies en un éclair.",
-            "Ça y est, son nom me revient : Dionaea muscipula, ou plus simplement, la Dionée attrape-mouche !"
-        ];
+        $game = $gameRepository->findOneBy(['id' => $gameID]);
+
+        if (!$game) {
+            $this->addFlash("danger", "Partie Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+        $allHints = $game->getOngoingChallenge()->getChallenge()->getHints();
+
+        $lastHint = $game->getOngoingChallenge()->getLastHint();
+
+        $hints = array_slice($allHints, 0, $lastHint);
 
         return $this->render('game/hints.html.twig', [
             'gameID' => $gameID,
@@ -287,44 +345,47 @@ final class GameController extends AbstractController
     }
 
     #[Route('/jeu/{gameID}/especes-scannees', name: 'play.scanned_species', requirements: ['gameID' => Requirement::DIGITS])]
-    public function scanned_species(int $gameID) : Response
+    public function scanned_species(int $gameID, GameRepository $gameRepository) : Response
     {
 
-        $species = self::getAllSpecies();
+        $game = $gameRepository->findOneBy(['id' => $gameID]);
 
-        $scanedSpeciesDTO = [
-            [
-                'latinName' => $species[0]->getLatinName(),
-                'id' => $species[0]->getId()
-            ],
-            [
-                'latinName' => "zdzzdzd  zdzd zd zd d",
-                'id' => $species[0]->getId()
-            ],
-        ];
+        if (!$game) {
+            $this->addFlash("danger", "Partie Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+        $scannedSpecies = $game->getOngoingChallenge()->getScannedSpecies()->toArray();
+
+        $allScannedSpeciesDTO = array_map(function (Species $s): ScannedSpeciesDTO {
+            return new ScannedSpeciesDTO(
+                id: $s->getId(),
+                latinName: $s->getLatinName()
+            );
+        }, $scannedSpecies);
+
 
         return $this->render('game/scanned_species.html.twig', [
             'gameID' => $gameID,
-            'scannedSpecies' => $scanedSpeciesDTO
+            'allScannedSpecies' => $allScannedSpeciesDTO
         ]);
     }
 
     #[Route('/jeu/{gameID}/quiz', name: 'play.quiz', requirements: ['gameID' => Requirement::DIGITS])]
-    public function quiz(int $gameID)
+    public function quiz(int $gameID, GameRepository $gameRepository)
     {
 
-        $quiz = (new Quiz())
-            ->setSpecies(self::getAllSpecies()[0])
-            ->setQuestion("Quel mécanisme unique la Dionée utilise-t-elle pour attraper ses proies ?")
-            ->setAnswers([
-                "Une substance collante",
-                "Des pièges en forme d'urnes",
-                "Des mâchoires sensibles qui se referment rapidement",
-                "Une toile gluante"
-            ])
-            ->setCorrectAnswer("Des mâchoires sensibles qui se referment rapidement");
+        $game = $gameRepository->findOneBy(['id' => $gameID]);
 
-        $journeyEnding = false;
+        if (!$game) {
+            $this->addFlash("danger", "Partie Introuvable");
+            return $this->redirectToRoute('home');
+        }
+
+        $quizzes = $game->getOngoingChallenge()->getChallenge()->getSpeciesToGuess()->getQuizzes()->toArray();
+        $quiz = $quizzes[array_rand($quizzes)];
+
+        $journeyEnding = ($game->getNumberOfAreasCompleted() === ($game->getNumberOfAreas() - 1));
 
         return $this->render('game/quiz.html.twig', [
             'gameID' => $gameID,

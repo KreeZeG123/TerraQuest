@@ -1,5 +1,21 @@
 {% for type, messages in app.flashes %}
-    <div class="alert alert-{{ type }}">
+    <div class="alert alert-{{ type }} fixed-top nav-margin-top" id="flash-{{ loop.index }}">
+        <button
+            type="button" class="close" data-dismiss="alert" aria-label="Close"
+            onclick="closeFlash('flash-{{ loop.index }}')"
+            style="position: absolute; top: 10px; right: 10px; border: none; background: transparent; font-size: 1.5em;"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
         {{ messages | join('. ') }}
     </div>
 {% endfor %}
+
+<script>
+    function closeFlash(id) {
+        const flashElement = document.getElementById(id);
+        if (flashElement) {
+            flashElement.style.display = 'none'; // Cache le message flash
+        }
+    }
+</script>

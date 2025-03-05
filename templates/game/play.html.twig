@@ -16,25 +16,25 @@
     </nav>
 
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top" style="min-height: 90dvh">
-        <h2>Zone Complétée : {{ game['areasCompleted'] }} / {{ game['numberOfAreas'] }}</h2>
+        <h2>Zone {{ ongoingChallenge.numberOfAreasCompleted + 1 }} / {{ ongoingChallenge.numberOfAreas }}</h2>
         <div class="card w-75">
             <div class="card-header text-center">
                 Trouvez la plante !
             </div>
             <div class="card-body">
-                {% if ongoingChallenge.challenge.type == 'text' %}
-                    <p class="card-text">{{ ongoingChallenge.challenge.description }}</p>
+                {% if ongoingChallenge.type == 'text' %}
+                    <p class="card-text">{{ ongoingChallenge.description }}</p>
                 {% else %}
-                    <img class="card-img-bottom" src="{{ asset( ongoingChallenge.challenge.image ) }}" alt="Image espèce à trouver">
+                    <img class="card-img-bottom" src="{{ asset( ongoingChallenge.image ) }}" alt="Image espèce à trouver">
                 {% endif %}
             </div>
         </div>
         <div class="card w-75 d-flex flex-row p-2 justify-content-center">
-            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastHint }}</a>
+            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="{{ path('play.hints', {gameID: gameID}) }}">{{ ongoingChallenge.lastHint }}</a>
             <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="{{ path('play.hints', {gameID: gameID}) }}">. . .</a>
         </div>
         <div class="card w-75 d-flex flex-row p-2 justify-content-center">
-            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="">{{ ongoingChallenge.lastScannedSpecies }}</a>
+            <a class="flex-grow-1 text-wrap text-decoration-none text-center" href="{{ path('play.scanned_species', {gameID: gameID}) }}">{{ ongoingChallenge.lastScannedSpecies }}</a>
             <a class="btn btn-primary ms-2 flex-shrink-0 align-content-center" style="width: 10%;" href="{{ path('play.scanned_species', {gameID: gameID}) }}">. . .</a>
         </div>
         <div class="w-75 d-flex justify-content-between">
