@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpKernel\Log\Logger;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -20,8 +23,9 @@ class Game
     #[ORM\JoinColumn(nullable: false)]
     private ?Journey $journey = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $completedAreas = [];
+    #[ORM\Column(type: Types::INTEGER)]
+    #[PositiveOrZero()]
+    private ?int $numStartingArea = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -66,14 +70,14 @@ class Game
         return $this;
     }
 
-    public function getCompletedAreas(): array
+    public function getNumStartingArea(): ?int
     {
-        return $this->completedAreas;
+        return $this->numStartingArea;
     }
 
-    public function setCompletedAreas(array $completedAreas): static
+    public function setNumStartingArea(?int $numStartingArea): static
     {
-        $this->completedAreas = $completedAreas;
+        $this->numStartingArea = $numStartingArea;
 
         return $this;
     }
@@ -160,5 +164,16 @@ class Game
         $this->ongoingChallenge = $ongoingChallenge;
 
         return $this;
+    }
+
+    public function getNextArea() : Area
+    {
+        // Augmente le nombre de zones complétées
+        $this->setNumberOfAreasCompleted($this->getNumberOfAreasCompleted() + 1);
+
+        // Récupère la zone suivante dans l'ordre du parcours
+        $newAreaNumber = ($this->getNumStartingArea() + $this->getNumberOfAreasCompleted()) % $this->getNumberOfAreas();
+
+        return $this->journey->getAreas()->get($newAreaNumber);
     }
 }

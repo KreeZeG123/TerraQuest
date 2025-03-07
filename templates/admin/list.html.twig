@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top justify-content-between">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('admin.index') }}">Retour</a>
+        <h3 class="text-white mx-auto text-center">Menu Administrateur</h3>
+    </nav>
+
+    <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top">
+        <h1>Liste des {{ entityType|capitalize }}</h1>
+
+        <a class="btn btn-primary" href="{{ path('admin.entity.create', {'entityType': entityType}) }}">
+            Créer un(e) {{ entityType|capitalize }}
+        </a>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                {% for field in fieldsToDisplay %}
+                    <th>{{ field[:1]|upper ~ field[1:] }}</th>
+                {% endfor %}
+                <th style="width: 200px">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for e in entities %}
+                <tr id="row_recipe_{{ e.id }}">
+                    <td>{{ e.id }}</td>
+                    {% for field in fieldsToDisplay %}
+                        <td>
+                            {% set value = attribute(e, field) %}
+                            {% if value is iterable %}
+                                {# Si c'est une collection, afficher les IDs des éléments #}
+                                {% for item in value %}
+                                    {{ item.id }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            {% elseif isObject(value) %}
+                                {# Si c'est un objet simple, vérifier son type #}
+                                {% if isObject(value, 'App\\Entity\\Area') %}
+                                    {{ value.id }}
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
+                            {% else %}
+                                {# Si c'est une valeur primitive, l'afficher directement #}
+                                {{ value }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        <div class="d-flex gap-1">
+                            <a class="btn btn-primary btn-sm" href="{{ path('admin.entity.edit', { 'entityType': entityType, 'id': e.id }) }}">Éditer</a>
+                            <a class="btn btn-danger btn-sm" href="{{ path('admin.entity.delete', { 'entityType': entityType, 'id': e.id }) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

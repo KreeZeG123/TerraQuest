@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{%  block javascripts %}
+
+{%  endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ gameID ? path('play', {gameID: gameID}) : referer }}">Retours</a>
+    </nav>
+
+    <main class="d-flex flex-column justify-content-center align-items-center py-2 px-5 nav-margin-top" style="min-height: 90dvh">
+        <div class="d-flex flex-column gap-4 w-75">
+            {% set settings = [
+                {'title': "Paramètres", 'link': "home"},
+                {'title': "Paramètres de notification", 'link': "home"},
+                {'title': "Conditions générales d'utilisation", 'link': "home"},
+                {'title': "Politique de confidentialité", 'link': "home"},
+                {'title': "Mentions légales", 'link': "home"},
+            ]
+            %}
+            {% for setting in settings %}
+                <a href="{{ path(setting.link) }}" class="text-decoration-none text-dark">
+                    <div class="d-flex flex-row justify-content-between w-100 py-2 border-bottom border-dark">
+                        <h2 class="mb-0">{{ setting.title }}</h2>
+                        <h2 class="mb-0">►</h2>
+                    </div>
+                </a>
+            {% endfor %}
+            {% if isAdmin %}
+                <a href="{{ path("admin.index") }}" class="text-decoration-none text-dark">
+                    <div class="d-flex flex-row justify-content-between w-100 py-2 border-bottom border-dark">
+                        <h2 class="mb-0">Menu Administrateur</h2>
+                        <h2 class="mb-0">►</h2>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </main>
+
+{% endblock %}

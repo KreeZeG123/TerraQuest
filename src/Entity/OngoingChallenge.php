@@ -122,12 +122,19 @@ class OngoingChallenge
         return $this;
     }
 
+    public function clearScannedSpecies(): static
+    {
+        $this->scannedSpecies->clear();
+
+        return $this;
+    }
+
     public function getLastHintTxt() : string
     {
         $hintIdx = $this->getLastHint() - 1;
 
         if ($hintIdx < 0) {
-            return "Aucun Indice";
+            return "Aucun indice demandé";
         }
 
         $hint = $this->getChallenge()->getHints();
@@ -137,5 +144,29 @@ class OngoingChallenge
         }
 
         return $hint[$hintIdx];
+    }
+
+    public function areHintAvaible(int $numberOfHint = null): bool
+    {
+        if ($numberOfHint === null) {
+            $numberOfHint = $this->getLastHint();
+        }
+
+        $maxHint = count($this->getChallenge()->getHints());
+        return $numberOfHint < $maxHint;
+    }
+
+    public function newHint(): bool
+    {
+        $newLastHint = $this->getLastHint() + 1;
+        $maxHint = count($this->getChallenge()->getHints());
+
+        if( !$this->areHintAvaible($newLastHint) ) {
+            $this->setLastHint($maxHint);
+            return false;
+        }
+
+        $this->setLastHint($newLastHint);
+        return true;
     }
 }

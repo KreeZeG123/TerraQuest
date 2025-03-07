@@ -1,5 +1,5 @@
 {% for type, messages in app.flashes %}
-    <div class="alert alert-{{ type }} fixed-top nav-margin-top" id="flash-{{ loop.index }}">
+    <div class="alert alert-{{ type }} fixed-top" id="flash-{{ loop.index }}" style="margin-top: 6.5rem; z-index: 1000">
         <button
             type="button" class="close" data-dismiss="alert" aria-label="Close"
             onclick="closeFlash('flash-{{ loop.index }}')"

@@ -32,7 +32,7 @@
                     {
                         lat: {{ hotspot.lat }},
                         lng: {{ hotspot.lng }},
-                        popup: generatePopUp("{{ hotspot.title }}", "{{ path('reach_area', {slug: hotspot.slug}) }}")
+                        popup: generatePopUp("{{ hotspot.title }}", "{{ path('reach_area', {journeyID: journeyID, areaID: hotspot.areaID}) }}")
                     },
                     {% endfor %}
                 ];

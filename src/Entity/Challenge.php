@@ -33,7 +33,7 @@ class Challenge
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private string $image = "";
 
     #[ORM\Column(type: Types::ARRAY)]
     private array $hints = [];
@@ -112,12 +112,12 @@ class Challenge
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): static
+    public function setImage(string $image): static
     {
         $this->image = $image;
 

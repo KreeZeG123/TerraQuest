@@ -4,7 +4,7 @@
 
 {% block body %}
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ referer }}">Retours</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ referer ? referer : targetPath }}">Retours</a>
     </nav>
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
         <form method="post">

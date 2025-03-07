@@ -10,9 +10,33 @@
 {% block stylesheets %}{% endblock %}
 
 {% block body %}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Souhaitez-vous vraiment quitter ?</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                        <p class="text-center">La progression ne sera pas sauvegardée si vous n’êtes pas connecté</p>
+                        <a class="btn btn-primary" href="{{ path('app_login', { tgPath: app.request.uri|url_encode }) }}">Se Connecter</a>
+                    </div>
+                {% endif %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a class="btn btn-danger" href="{{ path('games') }}">Quitter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Retour</a>
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Quitter
+        </button>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play.settings', {gameID:gameID}) }}">Param</a>
     </nav>
 
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top" style="min-height: 90dvh">
@@ -51,7 +75,6 @@
                 <p>Scanner QR</p>
             </div>
         </div>
-
 
     </main>
 

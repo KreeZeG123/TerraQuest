@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Statistics $statistics = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $profilePicture = "images/default_profile_picture";
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -241,6 +244,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->statistics = $statistics;
         $this->statistics->setUser($this);
+
+        return $this;
+    }
+
+    public function getProfilePicture(): string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(string $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }

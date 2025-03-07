@@ -77,4 +77,45 @@ class Badge
 
         return $this;
     }
+
+    public function isUnlocked(Statistics $stats): bool
+    {
+        return $this->evaluateWin($stats->getWins(), $this->getUnlockingCondition());
+    }
+
+    public function evaluateWin(mixed $valueToCompare, String $conditions)
+    {
+        // Expression régulière pour capturer les éléments du message
+        $pattern = '/(win)\s*(>=|<=|<|>|=)\s*(\d+)/i';
+
+        // Vérifier si le message correspond au format attendu
+        if (preg_match($pattern, $conditions, $matches)) {
+            // Récupérer l'opérateur et le nombre depuis le message
+            $operator = $matches[2];
+            $number = (int)$matches[3];
+
+            // Comparaison en fonction de l'opérateur
+            switch ($operator) {
+                case '>':
+                    return $valueToCompare > $number;
+                case '<':
+                    return $valueToCompare < $number;
+                case '>=':
+                    return $valueToCompare >= $number;
+                case '<=':
+                    return $valueToCompare <= $number;
+                case '=':
+                    return $valueToCompare == $number;
+                default:
+                    return false;
+            }
+        } else {
+            // Si le message n'est pas valide
+            return false;
+        }
+
+    }
+
+
+
 }

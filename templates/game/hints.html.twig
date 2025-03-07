@@ -11,7 +11,42 @@
 {% endblock %}
 
 {%  block javascripts %}
-    <
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Fonction pour gérer l'événement du bouton "Nouvel Indice"
+            const newHintButton = document.querySelector("a.btn[data-action='new-hint']");
+            newHintButton.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const gameID = "{{ gameID }}";
+
+                fetch("{{ path('api.new_hint') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ gameID: gameID })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Si l'indice est demandé avec succès, on actualise la page
+                        location.reload();
+                    } else {
+                        alert('Erreur lors de la demande d\'indice: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue.');
+                });
+            });
+
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -21,14 +56,19 @@
     <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
         <div class="d-flex flex-column justify-content-center align-items-center gap-2">
             {% for key,hint in hints|reverse %}
-                <div class="d-flex flex-column justify-content-center align-items-center gap-2 card bg-primary p-4" style="width: 60dvw">
+                <div class="d-flex flex-column justify-content-center align-items-center gap-2 card bg-primary p-3" style="width: 60dvw">
                     <h4>Indice n°{{ hints|length - key }}</h4>
                     <h5>{{ hint }}</h5>
                 </div>
             {% endfor %}
+            {% if hints is empty %}
+                <div class="d-flex flex-column justify-content-center align-items-center gap-2 card bg-primary p-4" style="width: 60dvw">
+                    <h5>Aucun indice demandé</h5>
+                </div>
+            {% endif %}
         </div>
     </main>
     <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Nouvel Indice</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3 {{ hintAvailable ? "" : "disabled" }}" href="#" data-action="new-hint">{{ hintAvailable ? "Nouvel indice" : "Plus aucun indice" }}</a>
     </footer>
 {% endblock %}

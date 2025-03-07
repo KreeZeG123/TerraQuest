@@ -38,6 +38,18 @@ class SecurityController extends AbstractController
             $targetPath = $tgPath;
         }
 
+        // Si le targetPath contient un tgPath, l'extraire et le définir comme nouvelle URL
+        $referer = null;
+        if ($targetPath && parse_url($targetPath, PHP_URL_QUERY)) {
+            parse_str(parse_url($targetPath, PHP_URL_QUERY), $queryParams);
+
+            if (isset($queryParams['tgPath'])) {
+                $decodedTgPath = urldecode($queryParams['tgPath']);
+                $referer = $decodedTgPath;
+            }
+        }
+
+
         // Si targetPath est toujours vide, on redirige vers la route "home"
         if (!$targetPath) {
             $targetPath = $this->generateUrl('home');
@@ -46,7 +58,8 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'referer' => $targetPath
+            'targetPath' => $targetPath,
+            'referer' => $referer
         ]);
     }
 

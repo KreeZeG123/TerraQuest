@@ -30,7 +30,7 @@
                         };
                     })
                     .catch(err => {
-                        alert("Erreur d'accès à la caméra: " + err.message)
+                        console.log("Erreur d'accès à la caméra: " + err.message)
                     });
 
                 function scanQRCode() {
@@ -59,7 +59,22 @@
                     // Appel récursif pour scanner en continu
                     requestAnimationFrame(scanQRCode);
                 }
-            },500)
+
+            }, 500);
+
+            // Handle form submission to replace __SPECIESID__ with the entered ID
+            console.log(document.getElementById("speciesForm"))
+            document.getElementById("speciesForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const speciesID = document.getElementById("speciesID").value;
+
+                if (speciesID) {
+                    const urlTemplate = "{{ path('play.species_information', {gameID: gameID, speciesID: '__SPECIESID__'}) }}";
+                    const url = urlTemplate.replace('__SPECIESID__', encodeURIComponent(speciesID));
+                    window.location.href = url; // Redirect to the URL with the species ID
+                }
+            });
         });
 
     </script>
@@ -79,6 +94,26 @@
 
         <video id="video" style="width: 100%; height: 100%;" autoplay></video>
         <canvas id="canvas" style="display:none; width: 100%; height: 100%;"></canvas>
+
+        <div class="fixed-top" style="margin-top: 5rem; z-index: 10">
+            <div class="d-flex flex-column justify-content-center align-items-center" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Saisir le numéro d'espèce manuellement
+                </button>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center" id="collapseExample">
+                <div id="collapseOne" class="card card-body collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                    <form action="" method="post" id="speciesForm">
+                        <div class="mb-3">
+                            <label for="speciesID" class="form-label">Numéro de l'espèce</label>
+                            <input type="number" min="0" class="form-control" id="speciesID" name="speciesID" placeholder="Entrez l'ID de l'espèce">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </main>
 
 {% endblock %}

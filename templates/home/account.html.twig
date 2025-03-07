@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block importLink %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var accordionHeaders = document.querySelectorAll("[data-toggle='collapse']")
+
+            accordionHeaders.forEach(function(headers) {
+                var icon = headers.querySelector(".toggle-icon");
+
+                headers.addEventListener("click", function() {
+                    setTimeout(() => {
+                        if (headers.classList.contains("collapsed")) {
+                            icon.textContent = "+";
+                        } else {
+                            icon.textContent = "-";
+                        }
+                    }, 150);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Accueil</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('app_logout') }}">Déconnexion</a>
+    </nav>
+
+    <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top">
+        <div class="d-flex flex-column w-75 gap-4 mt-4">
+            <div class="d-flex flex-row justify-content-between align-items-center px-4 w-100">
+                <img class="profile-picture border-grey bg-grey" style="width: 5rem; height: 100%;object-fit: cover;" src="{{ asset('images/default_profile_picture.png') }}" alt="">
+                <h2>{{ "KreeZe" }}</h2>
+            </div>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header bg-primary" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link text-white text-decoration-none fw-bold d-flex align-items-center">
+                                <span class="toggle-icon me-2">+</span> Badges
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                        <div class="card-body d-flex justify-content-center">
+                            <div class="d-flex flex-row flex-wrap justify-content-start gap-2" style="max-width: 98%;">
+                                {% for badge in badges %}
+                                    <div class="gallery-item {% if not badge.unlocked %}locked{% endif %}">
+                                        <img src="{{ asset( badge.image ) }}" alt="Image">
+                                        <div class="overlay">
+                                            <strong>{{ badge.title }}</strong>
+                                            <p>{{ badge.legend }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-primary" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link text-white text-decoration-none fw-bold">
+                                <span class="toggle-icon me-2">+</span> Glossaire
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                        <div class="card-body d-flex justify-content-center">
+                            <div class="d-flex flex-row flex-wrap justify-content-start gap-2" style="max-width: 98%;">
+                                {% for species in glossary %}
+                                    <div class="gallery-item {% if not species.unlocked %}locked{% endif %}">
+                                        <img src="{{ asset( species.image ) }}" alt="Image">
+                                        <div class="overlay">
+                                            <strong>{{ species.title }}</strong>
+                                            <p>{{ species.legend }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

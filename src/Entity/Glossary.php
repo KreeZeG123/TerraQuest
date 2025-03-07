@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GlossaryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GlossaryRepository::class)]
@@ -15,6 +17,17 @@ class Glossary
 
     #[ORM\OneToOne(mappedBy: 'glossary', cascade: ['persist', 'remove'])]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, Species>
+     */
+    #[ORM\ManyToMany(targetEntity: Species::class)]
+    private Collection $unlockedSpecies;
+
+    public function __construct()
+    {
+        $this->unlockedSpecies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -39,6 +52,30 @@ class Glossary
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Species>
+     */
+    public function getUnlockedSpecies(): Collection
+    {
+        return $this->unlockedSpecies;
+    }
+
+    public function addUnlockedSpecies(Species $unlockedSpecies): static
+    {
+        if (!$this->unlockedSpecies->contains($unlockedSpecies)) {
+            $this->unlockedSpecies->add($unlockedSpecies);
+        }
+
+        return $this;
+    }
+
+    public function removeUnlockedSpecies(Species $unlockedSpecies): static
+    {
+        $this->unlockedSpecies->removeElement($unlockedSpecies);
 
         return $this;
     }

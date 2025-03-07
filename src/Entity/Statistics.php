@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\StatisticsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: StatisticsRepository::class)]
+#[UniqueEntity('user')]
 class Statistics
 {
     #[ORM\Id]
@@ -16,8 +18,8 @@ class Statistics
     #[ORM\OneToOne(mappedBy: 'statistics', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
-    #[ORM\Column]
-    private ?int $wins = null;
+    #[ORM\Column(nullable: false)]
+    private int $wins = 0;
 
     public function getId(): ?int
     {
@@ -41,7 +43,7 @@ class Statistics
         return $this;
     }
 
-    public function getWins(): ?int
+    public function getWins(): int
     {
         return $this->wins;
     }

@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SpeciesRepository::class)]
+#[UniqueEntity('latinName')]
 #[UniqueEntity('slug')]
 class Species
 {

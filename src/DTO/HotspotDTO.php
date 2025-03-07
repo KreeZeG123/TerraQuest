@@ -8,11 +8,17 @@ class HotspotDTO
         private readonly float $lat,
         private readonly float $lng,
         private readonly ?string $title = null,
+        private readonly ?int $areaID = null,
         private readonly ?string $slug = null,
         private readonly ?string $link = null
     )
     {
 
+    }
+
+    public function getAreaID(): ?int
+    {
+        return $this->areaID;
     }
 
     public function getSlug(): ?string

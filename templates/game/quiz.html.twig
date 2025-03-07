@@ -42,6 +42,36 @@
                     nextSection.classList.remove("d-none");
                 });
             });
+
+            // Fonction pour gérer l'événement du bouton "Nouvel Indice"
+            const newHintButton = document.querySelector("a.btn[data-action='next-area']");
+            newHintButton.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const gameID = "{{ gameID }}";
+
+                fetch("{{ path('api.next_area') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ gameID: gameID })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Si la nouvelle zone arrive avec succès, redirige l'utilisateur vers la page pour atteindre la zone en question
+                            window.location.href = "{{ path('play.reach_area', {gameID: gameID, areaID: "__areaID__"}) }}".replace("__areaID__", data.message.newAreaID);
+                        } else {
+                            alert('Erreur lors de la demande d\'indice: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        alert('Une erreur est survenue.');
+                    });
+            });
         });
     </script>
 {% endblock %}
@@ -63,7 +93,11 @@
         </div>
         <div id="next-section" class="d-flex flex-column justify-content-center align-items-center gap-2 w-100 d-none">
             <hr class="hr-rounded w-50">
-            <a class="btn btn-primary" href="#">Zone suivante</a>
+            {% if not journeyEnding %}
+                <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="#" data-action="next-area">Zone suivante</a>
+            {% else %}
+                <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Accueil</a>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

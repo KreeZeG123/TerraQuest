@@ -8,8 +8,10 @@
 
 {% block body %}
     <nav class="navbar fixed-top justify-content-between px-5 py-3">
-        <a href="" class="btn btn-light">Compte</a>
-        <a href="" class="btn btn-light">Paramètres</a>
+        <a href="{{ path('account', { tgPath: app.request.uri|url_encode }) }}" class="profile-picture">
+            <img src="{{ asset('images/default_profile_picture.png') }}" alt="Profile Picture">
+        </a>
+        <a href="{{ path('settings', { tgPath: app.request.uri|url_encode }) }}" class="btn btn-light">Paramètres</a>
     </nav>
     <main>
         <section class="d-flex bsb-hero-1 px-3 bsb-overlay align-items-center" style="background-image: url({{ asset('images/hero-banner.webp') }});">

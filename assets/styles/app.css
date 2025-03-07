@@ -70,3 +70,78 @@ main {
     border-top: 0.3rem solid black;
     border-radius: 5px;
 }
+
+.profile-picture {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    background-color: white;
+}
+
+.border-grey {
+    border: 3px solid #6c757d;
+}
+
+.bg-grey {
+    background-color: #6c757d;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Centre l'image et coupe l'excédent */
+}
+
+.gallery-item {
+    position: relative;
+    width: 16rem;
+    height: 16rem;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s ease-in-out;
+}
+
+/* Griser l'image si elle est verrouillée */
+.gallery-item.locked img {
+    filter: grayscale(100%);
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.gallery-item:hover img {
+    filter: brightness(0.7);
+}
+
+.gallery-item.locked:hover img {
+    filter: brightness(0.7) grayscale(100%);
+}
+
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}

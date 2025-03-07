@@ -20,18 +20,15 @@
 
     <!-- Ajouter Leaflet Google Mutant pour Google Maps -->
     <script src="https://unpkg.com/leaflet.gridlayer.googlemutant/leaflet.gridlayer.googlemutant.js"></script>
-
 {% endblock %}
 
 {% block stylesheets %}
-
 {% endblock %}
 
-{%  block javascripts %}
+{% block javascripts %}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
-
                 // Fonction pour générer l'URL de l'iframe de Google Maps
                 function generateMapEmbed(startLat, startLng, endLat, endLng) {
                     return `https://www.google.com/maps/embed?pb=!1m20!1m8!1m3!1d648.4023584323658!2d${startLng}!3d${startLat}!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d${startLat}!2d${startLng}!4m3!3m2!1d${endLat}!2d${endLng}!5e1!3m2!1sfr!2sfr`;
@@ -75,9 +72,46 @@
                 // Appeler la fonction pour récupérer la position de l'utilisateur
                 getUserLocation();
 
+                // Fonction pour gérer l'événement du bouton "J'y suis"
+                const joinButton = document.querySelector("a.btn[data-action='join-game']");
+                joinButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+
+                    const gameID = "{{ gameID|default(null) }}";
+                    const journeyID = {{ journeyID }}
+                    const areaID = {{ areaID }};
+                    const userID = {{ userID|default(null) }};
+
+                    // Si gameID n'est pas défini, faire une requête API pour créer un nouveau jeu
+                    if (gameID === "__gameID__") {
+                        fetch("{{ path('api.new_game') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({ journeyID: journeyID, areaID: areaID, user: userID })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Si le jeu est créé avec succès, redirige l'utilisateur vers la page de jeu
+                                    window.location.href = "{{ path('play', {gameID: '__gameID__'}) }}".replace('__gameID__', data.message.gameID);
+                                } else {
+                                    alert('Erreur lors de la création du jeu: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erreur:', error);
+                                alert('Une erreur est survenue.');
+                            });
+                    } else {
+                        // Si gameID est déjà défini, redirige directement vers la page de jeu
+                        window.location.href = "{{ path('play', {gameID: gameID}) }}";
+                    }
+                });
             }, 100);
         });
-
     </script>
 {% endblock %}
 
@@ -88,11 +122,11 @@
     </nav>
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
         <div class="w-75 h-75 text-center">
-            <h2>Choisissez votre zone</h2>
+            <h2>Rendez-vous dans la zone</h2>
             <iframe id="map-embed" class="w-75" style="height: 45dvh; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </main>
     <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">J'y suis</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="#" data-action="join-game">J'y suis</a>
     </footer>
 {% endblock %}

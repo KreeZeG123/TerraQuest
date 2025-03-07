@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Glossary;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,4 +41,15 @@ class GlossaryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findOneByUser(User $user)
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.user', 'u')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

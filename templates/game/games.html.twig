@@ -9,7 +9,7 @@
 {% block body %}
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
         <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('home') }}">Retours</a>
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('games') }}">Param</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('settings', { tgPath: app.request.uri|url_encode }) }}">Param</a>
     </nav>
     <main class="d-flex flex-column align-items-center gap-2 py-2 px-5 nav-margin-top nav-margin-bottom" style="margin: 5rem auto">
         <h2>Parties</h2>
@@ -17,7 +17,8 @@
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
                 {% for game in games %}
                     <a
-                            class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem"
+                            class="btn btn-primary m-0 my-auto text-center align-content-center {{ game.finished ? "disabled" : "" }}"
+                            style="width: 400px; min-height: 3rem"
                             href="{{ path('play', {gameID: game.gameID}) }}"
                     >
                         {{ game.title }}
@@ -28,7 +29,7 @@
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
                 <a
                     class="btn btn-primary m-0 my-auto text-center align-content-center" style="width: 400px; min-height: 3rem"
-                    href="{{ path('app_login', { targetPath: app.request.uri|url_encode }) }}"
+                    href="{{ path('app_login', { tgPath: app.request.uri|url_encode }) }}"
                 >
                     Connectez-vous pour charger vos parties
                 </a>

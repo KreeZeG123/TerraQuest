@@ -3,40 +3,85 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block importLink %}
-
 {% endblock %}
 
 {% block stylesheets %}
-
 {% endblock %}
 
-{%  block javascripts %}
-    <
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const validateButton = document.querySelector("a.btn[data-action='validate-answer']");
+            const apiUrl = "{{ path('api.validate_answer') }}";
+            const correctGuessUrl = "{{ path('play.correct_guess', {gameID: gameID}) }}";
+            const journeyEndUrl = "{{ path('play.journey_ending', {gameID: gameID}) }}"
+            const wrongGuessUrl = "{{ path('play.wrong_guess', {gameID: gameID}) }}";
+
+            validateButton.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const gameID = {{ gameID }};
+                const speciesID = {{ species.id }};
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ gameID: gameID, speciesID: speciesID })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Vérifie si la requête a bien réussi côté serveur
+                        if (data.success) {
+                            // Vérifie le résultat de la réponse
+                            if (data.message.resultSpeciesGuess) {
+                                if (!data.message.journeyEnd) {
+                                    window.location.href = correctGuessUrl;
+                                }else {
+                                    window.location.href = journeyEndUrl;
+                                }
+                            } else {
+                                window.location.href = wrongGuessUrl;
+                            }
+                        } else {
+                            // Si la requête a échoué, on affiche un message d'erreur
+                            alert('Erreur serveur : ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        alert('Une erreur est survenue.');
+                    });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
     <nav class="navbar navbar-dark bg-dark px-5 fixed-top">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retours</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Retour</a>
     </nav>
     <main class="d-flex flex-column justify-content-center align-items-center gap-4 py-2 px-5 nav-margin-top nav-margin-bottom">
         <div class="d-flex flex-column w-75 gap-3">
             <h2 class="text-center">{{ species.latinName }}</h2>
-            <div>
-                {% for key,image in species.images %}
-                    <img src="{{ asset(image) }}" alt="Photo n°{{ key }}">
+            <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+                {% for key, image in species.images %}
+                    <img src="{{ asset(image) }}" alt="Photo n°{{ key }}" style="max-width: 300px; max-height: 300px">
                 {% endfor %}
             </div>
             <h3><strong>Nom vulgaire : </strong>{{ species.commonName }}</h3>
             <h3><strong>Nom latin : </strong>{{ species.latinName }}</h3>
             <h3><strong>Origine : </strong>{{ species.origin }}</h3>
             <h3><strong>Caractéristiques : </strong></h3>
-            <p>* {{ species.characteristics | replace({'\n': '<br> * '}) | raw }}</p>
+            <h4> &nbsp; - {{ species.characteristics | replace({'\n': '<br> &nbsp; - '}) | raw }}</h4>
             <h3><strong>Utilité/Vertu : </strong>{{ species.utility }}</h3>
             <h3><strong>Conditions de culture :</strong></h3>
-            <p>* {{ species.characteristics | replace({'\n': '<br> * '}) | raw }}</p>
+            <h4> &nbsp; - {{ species.characteristics | replace({'\n': '<br> &nbsp; - '}) | raw }}</h4>
         </div>
     </main>
     <footer class="d-flex justify-content-center bg-dark text-white text-center px-5 py-2 fixed-bottom">
-        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="{{ path('play', {gameID: gameID}) }}">Valider comme réponse</a>
+        <a type="button" class="btn bsb-btn-xl btn-primary gap-3" href="#" data-action="validate-answer">Valider comme réponse</a>
     </footer>
 {% endblock %}

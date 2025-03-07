@@ -3,15 +3,61 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block importLink %}
-
 {% endblock %}
 
 {% block stylesheets %}
-
 {% endblock %}
 
-{%  block javascripts %}
-    <
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const validateButtons = document.querySelectorAll("a.btn[data-action='validate-answer']"); // Sélection de tous les boutons "Valider"
+            const apiUrl = "{{ path('api.validate_answer') }}";
+            const correctGuessUrl = "{{ path('play.correct_guess', {gameID: gameID}) }}";
+            const wrongGuessUrl = "{{ path('play.wrong_guess', {gameID: gameID}) }}";
+            const journeyEndUrl = "{{ path('play.journey_ending', {gameID: gameID}) }}"
+
+            // Pour chaque bouton de validation
+            validateButtons.forEach((validateButton) => {
+                validateButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+
+                    const speciesID = validateButton.getAttribute('data-species-id');
+                    const gameID = {{ gameID }};
+
+                    fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({ gameID: gameID, speciesID: speciesID })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Vérifie si la réponse était correcte
+                                if (data.message.resultSpeciesGuess) {
+                                    if (!data.message.journeyEnd) {
+                                        window.location.href = correctGuessUrl;
+                                    }else {
+                                        window.location.href = journeyEndUrl;
+                                    }
+                                } else {
+                                    window.location.href = wrongGuessUrl; // Redirection en cas de mauvaise réponse
+                                }
+                            } else {
+                                alert('Erreur serveur : ' + data.message); // Afficher un message d'erreur
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            alert('Une erreur est survenue.');
+                        });
+                });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -25,12 +71,18 @@
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 card bg-primary p-4" style="width: 60dvw">
                     <h5 class="flex-grow-1 text-wrap text-center">{{ species.latinName }}</h5>
                     <div class="ms-2 flex-shrink-0 align-content-center">
-                        <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.species_information', {gameID: gameID, speciesID: species.id}) }}">?</a>
-                        <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.scanned_species', {gameID: gameID}) }}">V</a>
+                        <a class="btn btn-light m-0 my-auto text-center align-content-center" href="{{ path('play.species_information', {gameID: gameID, speciesID: species.id}) }}">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a type="button" class="btn bsb-btn-xl btn-light gap-3" href="#" data-action="validate-answer" data-species-id="{{ species.id }}">✔</a>
                     </div>
-
                 </div>
             {% endfor %}
+            {% if allScannedSpecies is empty %}
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 card bg-primary p-4" style="width: 60dvw">
+                    <h5>Aucune espèces scannées</h5>
+                </div>
+            {% endif %}
         </div>
     </main>
 {% endblock %}
