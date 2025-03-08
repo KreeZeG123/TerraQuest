@@ -366,7 +366,7 @@ class AppFixtures extends Fixture
 
         $admin = new User();
         $admin->setEmail("admin@admin.fr")
-            ->setPassword($this->hasher->hashPassword($user, "admin"))
+            ->setPassword($this->hasher->hashPassword($admin, "admin"))
             ->setUsername("Admin")
             ->setSettings((new Settings())->setLanguage('fr'))
             ->setGlossary((new Glossary())->setUser($admin))
