@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse e-mail est déjà utilisée.')]
+#[UniqueEntity(fields: ['username'], message: "Ce nom d'utilisateur est déjà utilisée.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -60,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Statistics $statistics = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $profilePicture = "images/default_profile_picture";
+    private ?string $profilePicture = "images/default_profile_picture.png";
 
     public function __construct()
     {

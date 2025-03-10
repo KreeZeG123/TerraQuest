@@ -42,8 +42,8 @@
     <main class="d-flex flex-column align-items-center gap-4 py-2 px-5 nav-margin-top">
         <div class="d-flex flex-column w-75 gap-4 mt-4">
             <div class="d-flex flex-row justify-content-between align-items-center px-4 w-100">
-                <img class="profile-picture border-grey bg-grey" style="width: 5rem; height: 100%;object-fit: cover;" src="{{ asset('images/default_profile_picture.png') }}" alt="">
-                <h2>{{ "KreeZe" }}</h2>
+                <img class="profile-picture border-grey bg-grey" style="width: 5rem; height: 100%;object-fit: cover;" src="{{ asset( profilePicture ) }}" alt="">
+                <h2>{{ username }}</h2>
             </div>
             <div id="accordion">
                 <div class="card">
@@ -57,6 +57,15 @@
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                         <div class="card-body d-flex justify-content-center">
                             <div class="d-flex flex-row flex-wrap justify-content-start gap-2" style="max-width: 98%;">
+                                {% if badges is empty %}
+                                    <div class="gallery-item">
+                                        <img src="{{ asset('images/empty_badge.png') }}" alt="Image">
+                                        <div class="overlay">
+                                            <strong>Aucun Badges</strong>
+                                            <p>A vous de les débloquer</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
                                 {% for badge in badges %}
                                     <div class="gallery-item {% if not badge.unlocked %}locked{% endif %}">
                                         <img src="{{ asset( badge.image ) }}" alt="Image">

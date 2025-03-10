@@ -91,14 +91,14 @@ final class ApiController extends AbstractController
          */
         $journey = $journeyRepository->find($journeyID);
         $area = $areaRepository->find($areaID);
-        $user = $userRepository->find($player);
+        $user = ($player === -1) ? null : $userRepository->find($player);
 
 
         // Si les donneés n'existe pas, on renvoie un message d'erreur
-        if (!$journey || !$area || !$user) {
+        if (!$journey || !$area) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'Next-Game : Parcours ou Zone ou Joueur introuvable.'
+                'message' => 'Next-Game : Parcours ou Zone introuvable.'
             ], 400);
         }
 

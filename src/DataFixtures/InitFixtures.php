@@ -30,13 +30,13 @@ class InitFixtures extends Fixture
                 [
                     "LatinName" => "Camellia japonica",
                     "CommonName" => "Camélia du Japon",
-                    "Origin" => "Originaire d\'Asie de l\'Est, notamment du Japon, de la Chine et de la Corée.",
+                    "Origin" => "Originaire d'Asie de l'Est, notamment du Japon, de la Chine et de la Corée.",
                     "Characteristics" => "Arbuste persistant à fleurs spectaculaires, pouvant être rouges, roses ou blanches.\nFeuillage vert foncé lustré.\nFloraison hivernale ou printanière selon la variété.",
                     "Utility" => "Utilisé en ornementation dans les jardins et parcs.\nCertaines variétés sont exploitées pour la production de thé.",
-                    "CultivationCondition" => "Sol acide, riche et bien drainé.\nExposition mi-ombre ou soleil tamisé.\nArrosage régulier, mais sans excès d\'eau stagnante.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    "CultivationCondition" => "Sol acide, riche et bien drainé.\nExposition mi-ombre ou soleil tamisé.\nArrosage régulier, mais sans excès d'eau stagnante.",
+                    'latGPS' => 47.50038,
+                    'lngGPS' => -0.56951,
+                    'images' => [ "images/species/camellia_1.png", "images/species/camellia_2.png", "images/species/camellia_3.png" ]
                 ],
                 [
                     "LatinName" => "Oryza sativa",
@@ -45,9 +45,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante herbacée annuelle poussant en touffes.\nGraminée essentielle pour l'alimentation humaine.\nFleurs discrètes suivies de grains de riz dans des épis.",
                     "Utility" => "Aliment de base pour plus de la moitié de la population mondiale.\nUtilisé aussi dans la production d'amidon et d'alcool.",
                     "CultivationCondition" => "Sol inondé ou humide selon la culture (riz irrigué ou pluvial).\nExposition ensoleillée.\nTempérature chaude (supérieure à 20°C).",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50035,
+                    'lngGPS' => -0.56931,
+                    'images' => [ "images/species/oryza_1.png", "images/species/oryza_2.png", "images/species/oryza_3.png" ],
                     'quiz' => [
                         'question' => "Quel est l'usage principal du riz dans l'alimentation humaine ?",
                         'answers' => [
@@ -76,9 +76,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petit arbre caduc à feuilles palmées et finement découpées.\nSuperbe coloration automnale allant du rouge vif à l'orange.",
                     "Utility" => "Très apprécié en ornementation, notamment pour les jardins japonais.\nCertains cultivars sont utilisés pour le bonsaï.",
                     "CultivationCondition" => "Sol riche, bien drainé et légèrement acide.\nExposition mi-ombre à ensoleillée.\nProtection contre les vents froids.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50029,
+                    'lngGPS' => -0.56946,
+                    'images' => [ "images/species/acer_1.png", "images/species/acer_2.png", "images/species/acer_3.png" ]
                 ],
                 [
                     "LatinName" => "Bambusa vulgaris",
@@ -87,9 +87,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante à croissance rapide formant des touffes denses.\nTiges lignifiées pouvant atteindre plusieurs mètres de hauteur.\nFeuillage persistant et léger.",
                     "Utility" => "Utilisé pour la construction, la vannerie et comme plante ornementale.\nCertaines espèces sont consommées pour leurs jeunes pousses.",
                     "CultivationCondition" => "Sol bien drainé, fertile et humide.\nExposition ensoleillée ou mi-ombre.\nSupporte bien l'humidité mais tolère la sécheresse modérée.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50019,
+                    'lngGPS' => -0.56934,
+                    'images' => [ "images/species/bambusa_1.png", "images/species/bambusa_2.png", "images/species/bambusa_3.png" ]
                 ]
             ]
 	    ],
@@ -109,7 +109,7 @@ class InitFixtures extends Fixture
                     "CultivationCondition" => "Substrat : Tourbe blonde pure ou mélangée à de la perlite.\nLumière : Soleil direct ou lumière vive.\nHumidité : Substrat toujours humide avec de l’eau déminéralisée.\nTempérature : Entre 15 et 30 °C, avec une période de dormance en hiver (moins de 10 °C).",
                     "latGPS" => '47.50005',
                     "lngGPS" => '-0.56843',
-                    "images" => ['images/dionaea_1.jpg', 'images/dionaea_2.jpg', 'images/dionaea_3.jpg', ],
+                    "images" => [ 'images/species/dionaea_1.jpg', 'images/species/dionaea_2.jpg', 'images/species/dionaea_3.jpg' ],
                     'quiz' => [
                         'question' => "Quel mécanisme unique la Dionée utilise-t-elle pour attraper ses proies ?",
                         'answers' => [
@@ -140,7 +140,7 @@ class InitFixtures extends Fixture
                     "CultivationCondition" => "Substrat : Tourbe blonde mélangée à du sable ou de la perlite.\nLumière : Lumière intense ou soleil filtré.\nHumidité : Substrat humide avec de l’eau déminéralisée ou de pluie.\nTempérature : Entre 15 et 30 °C.",
                     "latGPS" => "47.50014",
                     "lngGPS" => "-0.5684",
-                    "images" => ["images/drosera_1.jpg", "images/drosera_2.jpg", "images/drosera_3.jpg", ],
+                    "images" => [ "images/species/drosera_1.jpg", "images/species/drosera_2.jpg", "images/species/drosera_3.jpg" ],
                 ],
                 [
                     "LatinName" => "Sarracenia",
@@ -151,7 +151,7 @@ class InitFixtures extends Fixture
                     "CultivationCondition" => "Substrat : Tourbe blonde pure ou mélangée à de la perlite ou du sable non calcaire.\nLumière : Exposition plein soleil.\nHumidité : Substrat très humide en été, légèrement moins en hiver.\nTempérature : Entre 20 et 30 °C en été, avec une dormance hivernale (0 à 10 °C).",
                     "latGPS" => "47.50013",
                     "lngGPS" => "-0.56821",
-                    "images" => ["images/sarracenia_1.jpg", "images/sarracenia_2.jpg", "images/sarracenia_3.jpg", ],
+                    "images" => [ "images/species/sarracenia_1.jpg", "images/species/sarracenia_2.jpg", "images/species/sarracenia_3.jpg" ],
                 ],
                 [
                     "LatinName" => "Nepenthes",
@@ -162,7 +162,7 @@ class InitFixtures extends Fixture
                     "CultivationCondition" => "Substrat : Mélange de tourbe et de sable.\nLumière : Lumière vive mais indirecte.\nHumidité : Très haute, le substrat doit toujours être humide.\nTempérature : Préfère des températures chaudes et humides, entre 20 et 30 °C.",
                     "latGPS" => "47.50001",
                     "lngGPS" => "-0.56828",
-                    "images" => ["images/nepenthes_1.jpg", "images/nepenthes_2.jpg", "images/nepenthes_3.jpg", ],
+                    "images" => ["images/species/nepenthes_1.jpg", "images/species/nepenthes_2.jpg", "images/species/nepenthes_3.jpg" ],
                 ]
             ]
         ],
@@ -175,11 +175,11 @@ class InitFixtures extends Fixture
                 [
                     "LatinName" => "Echinocactus grusonii",
                     "CommonName" => "Coussin de Belle-Mère",
-                    "Origin" => "Originaire des zones arides du Mexique, en particulier de l\'État de Durango.",
-                    "Characteristics" => "Cactus globulaire avec de fortes épines jaunes disposées en rayons réguliers.\nIl peut atteindre jusqu\'à 1 mètre de diamètre dans des conditions optimales.\nPlante décorative, souvent cultivée en pot dans les régions plus fraîches.",
+                    "Origin" => "Originaire des zones arides du Mexique, en particulier de l'État de Durango.",
+                    "Characteristics" => "Cactus globulaire avec de fortes épines jaunes disposées en rayons réguliers.\nIl peut atteindre jusqu'à 1 mètre de diamètre dans des conditions optimales.\nPlante décorative, souvent cultivée en pot dans les régions plus fraîches.",
                     "Utility" => "Bien que peu utilisée pour des fins alimentaires ou médicinales, son aspect esthétique la rend populaire en jardinage et dans la décoration intérieure.",
-                    "CultivationCondition" => "Substrat : Sol bien drainé, composé de sable et de terreau pour cactus.\nLumière : Ensoleillement direct, préfère des climats chauds et secs.\nHumidité : Faible, nécessite un environnement sec avec peu d\'arrosage.\nTempérature : Entre 20 et 30 °C, sensible au gel.",
-                    "images" => ["images/echinocactus_1.jpg", "images/echinocactus_2.jpg", "images/echinocactus_3.jpg" ],
+                    "CultivationCondition" => "Substrat : Sol bien drainé, composé de sable et de terreau pour cactus.\nLumière : Ensoleillement direct, préfère des climats chauds et secs.\nHumidité : Faible, nécessite un environnement sec avec peu d'arrosage.\nTempérature : Entre 20 et 30 °C, sensible au gel.",
+                    "images" => [ "images/species/echinocactus_1.jpg", "images/species/echinocactus_2.jpg", "images/species/echinocactus_3.jpg" ],
                     "latGPS" => "47.50009",
                     "lngGPS" => "-0.56779",
                     'quiz' => [
@@ -210,7 +210,7 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante succulente à grandes feuilles charnues, souvent disposées en rosette.\nLes feuilles sont souvent bordées d'épines et peuvent être recouvertes de cire blanche.\nProduit une grande tige florale lorsque la plante atteint sa maturité, souvent après de nombreuses années.",
                     "Utility" => "L'Agave est également utilisé dans la fabrication de nectar, de sirop d'agave et pour des usages médicinaux traditionnels.",
                     "CultivationCondition" => "Substrat : Sol bien drainé, légèrement sableux ou caillouteux.\nLumière : Ensoleillement direct, préfère les climats chauds et secs.\nHumidité : Faible, bien que résistant à des périodes de sécheresse prolongées.\nTempérature : Entre 18 et 30 °C, résiste à la chaleur mais pas au gel.",
-                    "images" => ["images/agave_1.jpg", "images/agave_2.jpg", "images/agave_3.jpg", ],
+                    "images" => [ "images/species/agave_1.jpg", "images/species/agave_2.jpg", "images/species/agave_3.jpg" ],
                     "latGPS" => "47.50001",
                     "lngGPS" => "-0.56775"
                 ],
@@ -221,7 +221,7 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante succulente avec des tiges aplaties, appelées \"cladodes\", qui ressemblent à des raquettes.\nProduit des fruits comestibles appelés \"figues de Barbarie\", qui sont généralement sucrés et riches en vitamines.\nLes tiges sont recouvertes de petites épines, mais certaines variétés sont sans épines.",
                     "Utility" => "Le cactus est utilisé pour fabriquer des produits cosmétiques et médicinaux grâce à ses propriétés hydratantes et anti-inflammatoires.",
                     "CultivationCondition" => "Substrat : Sol bien drainé, sableux, et légèrement acide à neutre.\nLumière : Exposition en plein soleil.\nHumidité : Faible à modérée, tolère bien les sécheresses.\n\nTempérature : Préfère les températures chaudes, entre 20 et 30 °C, mais résiste à de courtes périodes de froid (jusqu'à -5°C).\nValider comme réponse",
-                    "images" => ["images/opuntia_1.jpg", "images/opuntia_2.jpg", "images/opuntia_3.jpg"],
+                    "images" => [ "images/species/opuntia_1.jpg", "images/species/opuntia_2.jpg", "images/species/opuntia_3.jpg" ],
                     "latGPS" => "47.49992",
                     "lngGPS" => "-0.5677"
                 ]
@@ -240,9 +240,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbuste aromatique à fleurs violettes très parfumées.\nFeuilles persistantes étroites et gris-vert.\nAttire les pollinisateurs comme les abeilles.",
                     "Utility" => "Utilisée en parfumerie et pour ses propriétés médicinales (calmante, antiseptique).\nExploitable en infusion ou huile essentielle.",
                     "CultivationCondition" => "Sol bien drainé, plutôt calcaire et sec.\nExposition plein soleil.\nArrosage faible, supporte bien la sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50131,
+                    'lngGPS' => -0.56958,
+                    'images' => [ "images/species/lavandula_1.png", "images/species/lavandula_2.png", "images/species/lavandula_3.png" ]
                 ],
                 [
                     "LatinName" => "Santolina chamaecyparissus",
@@ -251,9 +251,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petit arbuste persistant aux feuilles grisâtres et aux fleurs jaunes en été.\nTrès résistant à la sécheresse.\nÉmet une forte odeur aromatique.",
                     "Utility" => "Utilisé en haie basse ou couvre-sol.\nPossède des propriétés médicinales (antiseptique, insectifuge).",
                     "CultivationCondition" => "Sol sec, bien drainé, pauvre.\nExposition plein soleil.\nRésiste aux fortes chaleurs et aux sols pauvres.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.5013,
+                    'lngGPS' => -0.56983,
+                    'images' => [ "images/species/santolina_1.png", "images/species/santolina_2.png", "images/species/santolina_3.png" ]
                 ],
                 [
                     "LatinName" => "Sedum spectabile",
@@ -262,9 +262,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante succulente à feuilles charnues et fleurs roses en automne.\nAttire les papillons et les abeilles.\nRésistante à la sécheresse.",
                     "Utility" => "Utilisé en massifs ou toitures végétalisées.\nTrès ornemental en fin de saison.",
                     "CultivationCondition" => "Sol pauvre et drainant.\nExposition plein soleil.\nTrès faible besoin en eau.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.5011,
+                    'lngGPS' => -0.56968,
+                    'images' => [ "images/species/sedum_1.png", "images/species/sedum_2.png", "images/species/sedum_3.png" ]
                 ],
                 [
                     "LatinName" => "Euphorbia characias",
@@ -273,9 +273,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante vivace au port dressé et aux inflorescences vert-jaune.\nExsude un latex toxique en cas de blessure.\nPersistante et très résistante à la sécheresse.",
                     "Utility" => "Utilisée pour stabiliser les sols secs.\nOrnementale pour jardins méditerranéens.",
                     "CultivationCondition" => "Sol bien drainé, sableux ou caillouteux.\nExposition plein soleil.\nNe nécessite pratiquement aucun arrosage.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50101,
+                    'lngGPS' => -0.56975,
+                    'images' => [ "images/species/euphorbia_1.png", "images/species/euphorbia_2.png", "images/species/euphorbia_3.png" ],
                     'quiz' => [
                         'question' => "Quel est un trait distinctif de l'Euphorbe méditerranéenne ?",
                         'answers' => [
@@ -312,9 +312,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbre caduc à feuilles en éventail, pouvant atteindre 30 mètres de haut.\nRésistant à la pollution et aux maladies.\nLes feuilles prennent une magnifique couleur dorée en automne.",
                     "Utility" => "Utilisé en médecine traditionnelle pour ses propriétés sur la mémoire et la circulation sanguine.\nPlante ornementale populaire dans les jardins et espaces urbains.",
                     "CultivationCondition" => "Sol profond, bien drainé et légèrement acide.\nExposition plein soleil.\nRésistant aux conditions climatiques difficiles.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50141,
+                    'lngGPS' => -0.5682,
+                    'images' => [ "images/species/ginkgo_1.png", "images/species/ginkgo_2.png", "images/species/ginkgo_3.png" ]
                 ],
                 [
                     "LatinName" => "Equisetum arvense",
@@ -323,9 +323,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante vivace primitive à tiges creuses et rigides.\nNe produit pas de fleurs mais se reproduit par spores.\nContient une forte concentration en silice.",
                     "Utility" => "Utilisée en phytothérapie pour ses propriétés diurétiques et reminéralisantes.\nEmployée en agriculture biologique comme fongicide naturel.",
                     "CultivationCondition" => "Sol humide, riche en silice.\nExposition soleil ou mi-ombre.\nPousse spontanément dans les zones humides et marécageuses.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50128,
+                    'lngGPS' => -0.56777,
+                    'images' => [ "images/species/equisetum_1.png", "images/species/equisetum_2.png", "images/species/equisetum_3.png" ],
                     'quiz' => [
                         'question' => "Pourquoi la prêle des champs est-elle considérée comme une plante primitive ?",
                         'answers' => [
@@ -354,9 +354,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Grand conifère au port pyramidal et aux branches couvertes de feuilles épaisses et piquantes.\nPeut vivre plusieurs centaines d'années.\nÉcorce très résistante aux incendies.",
                     "Utility" => "Bois utilisé en menuiserie et ébénisterie.\nArbre ornemental apprécié pour son aspect préhistorique.",
                     "CultivationCondition" => "Sol bien drainé, légèrement acide.\nExposition ensoleillée.\nSupporte le froid mais craint les sols trop humides.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.5015,
+                    'lngGPS' => -0.56771,
+                    'images' => [ "images/species/araucaria_1.png", "images/species/araucaria_2.png", "images/species/araucaria_3.png" ]
                 ],
                 [
                     "LatinName" => "Cycas revoluta",
@@ -365,9 +365,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante ressemblant à un palmier avec un tronc court et des feuilles en rosette.\nPlante dioïque (pieds mâles et femelles séparés).\nCroissance très lente.",
                     "Utility" => "Plante ornementale très prisée pour les jardins tropicaux.\nFeuilles et graines toxiques si ingérées.",
                     "CultivationCondition" => "Sol bien drainé, sablonneux ou caillouteux.\nExposition plein soleil ou mi-ombre.\nArrosage modéré, tolère la sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50162,
+                    'lngGPS' => -0.56809,
+                    'images' => [ "images/species/cycas_1.png", "images/species/cycas_2.png", "images/species/cycas_3.png" ]
                 ]
             ]
         ],
@@ -384,9 +384,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante herbacée grimpante à tiges carrées et rugueuses.\nRacines rouges contenant des pigments utilisés pour la teinture.\nFleurs petites et jaunâtres.",
                     "Utility" => "Utilisée depuis l’Antiquité pour produire un colorant rouge (alizarine).\nAussi employée en médecine traditionnelle pour ses propriétés diurétiques.",
                     "CultivationCondition" => "Sol léger, bien drainé et calcaire.\nExposition ensoleillée ou mi-ombre.\nArrosage modéré, supporte la sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50161,
+                    'lngGPS' => -0.56896,
+                    'images' => [ "images/species/rubia_1.png", "images/species/rubia_2.png", "images/species/rubia_3.png" ]
                 ],
                 [
                     "LatinName" => "Isatis tinctoria",
@@ -395,9 +395,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante bisannuelle à grandes feuilles allongées et fleurs jaunes en grappes.\nLes feuilles contiennent un pigment bleu utilisé pour la teinture (indigo).",
                     "Utility" => "Historiquement utilisée pour produire du bleu pastel, notamment en France (Pays de Cocagne).\nEmployée aussi en médecine traditionnelle pour ses propriétés antiseptiques.",
                     "CultivationCondition" => "Sol calcaire, bien drainé.\nExposition en plein soleil.\nRésistante à la sécheresse et aux climats tempérés.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50165,
+                    'lngGPS' => -0.5689,
+                    'images' => [  "images/species/isatis_1.png", "images/species/isatis_2.png", "images/species/isatis_3.png" ]
                 ],
                 [
                     "LatinName" => "Carthamus tinctorius",
@@ -406,9 +406,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante herbacée annuelle à fleurs jaunes, orangées ou rouges.\nSes fleurs et ses graines sont utilisées pour la teinture et la production d'huile.",
                     "Utility" => "Source de colorant jaune et rouge pour l'industrie textile.\nHuile extraite des graines utilisée en alimentation et cosmétique.",
                     "CultivationCondition" => "Sol bien drainé, plutôt pauvre.\nExposition plein soleil.\nTolère bien la sécheresse et la chaleur.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50174,
+                    'lngGPS' => -0.56891,
+                    'images' => [ "images/species/carthamus_1.png", "images/species/carthamus_2.png", "images/species/carthamus_3.png" ],
                     'quiz' => [
                         'question' => "Quel est l'usage principal du Carthame des teinturiers ?",
                         'answers' => [
@@ -437,9 +437,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petit arbre à bois dense et riche en pigments colorés.\nFeuilles composées et fleurs jaunes parfumées.\nLe bois produit une teinture violet-rouge.",
                     "Utility" => "Principalement utilisé pour la teinture textile et la fabrication d'encre.\nEmployé en médecine traditionnelle pour ses propriétés antioxydantes.",
                     "CultivationCondition" => "Sol bien drainé et riche.\nExposition ensoleillée.\nRésiste aux climats chauds et secs.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50179,
+                    'lngGPS' => -0.56889,
+                    'images' => [ "images/species/haematoxylum_1.png", "images/species/haematoxylum_2.png", "images/species/haematoxylum_3.png" ]
                 ]
     
             ]
@@ -457,9 +457,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbuste à feuilles caduques produisant des fleurs simples ou semi-doubles roses à rouge foncé.\nFloraison en début d’été.\nForte teneur en huiles essentielles.",
                     "Utility" => "Utilisée en parfumerie et en phytothérapie pour ses propriétés apaisantes.\nTraditionnellement employée pour la fabrication de confitures et sirops.",
                     "CultivationCondition" => "Sol riche, bien drainé et légèrement acide.\nExposition ensoleillée.\nArrosage régulier mais sans excès.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50227,
+                    'lngGPS' => -0.56984,
+                    'images' => [ "images/species/rosa_gallica_1.png", "images/species/rosa_gallica_2.png", "images/species/rosa_gallica_3.png" ],
                     'quiz' => [
                         'question' => "Quelle est l'utilisation principale de la Rose de Provins ?",
                         'answers' => [
@@ -488,9 +488,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Rosier arbustif aux fleurs très doubles et parfumées.\nFloraison printanière et estivale.\nTiges légèrement épineuses.",
                     "Utility" => "Cultivée pour la production d’huiles essentielles en parfumerie.\nAppréciée pour la confection de pot-pourris et cosmétiques naturels.",
                     "CultivationCondition" => "Sol bien drainé et fertile.\nExposition plein soleil.\nBesoin d’une taille annuelle pour une floraison optimale.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50224,
+                    'lngGPS' => -0.56975,
+                    'images' => [ "images/species/rosa_centifolia_1.png", "images/species/rosa_centifolia_2.png", "images/species/rosa_centifolia_3.png" ]
                 ],
                 [
                     "LatinName" => "Rosa rugosa",
@@ -499,9 +499,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbuste très résistant avec des feuilles gaufrées et des fleurs roses parfumées.\nProduisant des cynorrhodons riches en vitamine C.\nTrès rustique et tolérant aux conditions difficiles.",
                     "Utility" => "Utilisé en haies défensives et pour stabiliser les dunes de sable.\nSes fruits sont utilisés en tisanes et confitures.",
                     "CultivationCondition" => "Sol bien drainé mais tolère une grande variété de sols.\nExposition plein soleil.\nPeu d’entretien nécessaire, très résistant aux maladies.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.5022,
+                    'lngGPS' => -0.56998,
+                    'images' => [ "images/species/rosa_rugosa_1.png", "images/species/rosa_rugosa_2.png", "images/species/rosa_rugosa_3.png" ]
                 ],
                 [
                     "LatinName" => "Rosa damascena",
@@ -510,9 +510,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Rosier à fleurs doubles et très parfumées.\nFloraison unique en début d’été.\nFleurs utilisées pour extraire l’eau et l’huile essentielle de rose.",
                     "Utility" => "Essentielle en parfumerie et cosmétique.\nEmployée en phytothérapie pour ses propriétés relaxantes et tonifiantes.",
                     "CultivationCondition" => "Sol fertile, bien drainé et légèrement alcalin.\nExposition ensoleillée.\nArrosage modéré mais régulier.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50216,
+                    'lngGPS' => -0.5699,
+                    'images' => [ "images/species/rosa_damascena_1.png", "images/species/rosa_damascena_2.png", "images/species/rosa_damascena_3.png" ]
                 ]
             ]
         ],
@@ -529,9 +529,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petite plante vivace aux feuilles persistantes et aromatiques.\nFleurs violettes attirant les pollinisateurs.\nFort parfum utilisé en cuisine et en médecine.",
                     "Utility" => "Utilisé en cuisine pour aromatiser les plats.\nEn infusion, il possède des vertus antiseptiques et digestives.",
                     "CultivationCondition" => "Sol bien drainé, sableux ou rocailleux.\nExposition plein soleil.\nArrosage modéré, supporte bien la sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50216,
+                    'lngGPS' => -0.57117,
+                    'images' => [ "images/species/thymus_1.png", "images/species/thymus_2.png", "images/species/thymus_3.png" ]
                 ],
                 [
                     "LatinName" => "Rosmarinus officinalis",
@@ -540,9 +540,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbuste persistant à feuilles étroites et très aromatiques.\nFleurs bleuâtres attirant les abeilles.\nTrès résistant à la sécheresse.",
                     "Utility" => "Utilisé comme condiment en cuisine.\nEmployé en infusion pour ses propriétés stimulantes et digestives.",
                     "CultivationCondition" => "Sol bien drainé, pauvre et calcaire.\nExposition plein soleil.\nTolère la sécheresse et les climats chauds.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50206,
+                    'lngGPS' => -0.57104,
+                    'images' => [ "images/species/rosmarinus_1.png", "images/species/rosmarinus_2.png", "images/species/rosmarinus_3.png" ]
                 ],
                 [
                     "LatinName" => "Mentha spicata",
@@ -551,9 +551,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante vivace au feuillage vert clair très parfumé.\nCroissance rapide et envahissante.\nFleurs violettes en épis attirant les insectes pollinisateurs.",
                     "Utility" => "Utilisée en cuisine et en infusion pour ses propriétés rafraîchissantes et digestives.\nEmployée aussi en phytothérapie pour apaiser les maux de tête et les troubles gastriques.",
                     "CultivationCondition" => "Sol riche et humide mais bien drainé.\nExposition soleil ou mi-ombre.\nArrosage régulier pour éviter le dessèchement.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50202,
+                    'lngGPS' => -0.57098,
+                    'images' => [ "images/species/mentha_1.png", "images/species/mentha_2.png", "images/species/mentha_3.png" ]
                 ],
                 [
                     "LatinName" => "Foeniculum vulgare",
@@ -562,9 +562,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante aromatique à longues tiges et feuillage finement découpé.\nFleurs jaunes en ombelles en été.\nSaveur anisée caractéristique.",
                     "Utility" => "Utilisé en cuisine pour aromatiser les plats.\nEn infusion, il favorise la digestion et réduit les ballonnements.",
                     "CultivationCondition" => "Sol bien drainé, léger et riche en nutriments.\nExposition plein soleil.\nArrosage modéré, tolère bien la sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50197,
+                    'lngGPS' => -0.5709,
+                    'images' => [ "images/species/foeniculum_1.png", "images/species/foeniculum_2.png", "images/species/foeniculum_3.png" ],
                     'quiz' => [
                         'question' => "Quel goût caractéristique a le fenouil ?",
                         'answers' => [
@@ -601,9 +601,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Grand conifère caduc pouvant atteindre 30 mètres de haut.\nCapable de survivre dans l'eau grâce à ses pneumatophores (racines aériennes).\nFeuillage fin devenant orangé à l’automne.",
                     "Utility" => "Utilisé pour le reboisement des zones humides.\nSon bois résistant à l'eau est apprécié en construction et ébénisterie.",
                     "CultivationCondition" => "Sol humide, voire inondé.\nExposition ensoleillée.\nTolère aussi les périodes de sécheresse une fois établi.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50175,
+                    'lngGPS' => -0.57181,
+                    'images' => [ "images/species/taxodium_1.png", "images/species/taxodium_2.png", "images/species/taxodium_3.png" ]
                 ],
                 [
                     "LatinName" => "Nelumbo lutea",
@@ -612,9 +612,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante aquatique aux grandes feuilles flottantes et aux fleurs jaunes parfumées.\nSes graines peuvent rester viables pendant des siècles.\nPlante rhizomateuse très résistante.",
                     "Utility" => "Utilisée dans la purification de l'eau.\nRhizomes et graines comestibles, consommés par certaines populations amérindiennes.",
                     "CultivationCondition" => "Eau calme et peu profonde (15 à 50 cm de profondeur).\nExposition plein soleil.\nTempératures chaudes favorisant la floraison.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50173,
+                    'lngGPS' => -0.57225,
+                    'images' => [ "images/species/nelumbo_1.png", "images/species/nelumbo_2.png", "images/species/nelumbo_3.png" ],
                     'quiz' => [
                         'question' => "Pourquoi le Lotus jaune est-il considéré comme une plante remarquable ?",
                         'answers' => [
@@ -643,9 +643,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante aquatique vivace à feuilles en forme de flèche.\nFleurs blanches à trois pétales apparaissant en été.\nSes tubercules sont riches en amidon.",
                     "Utility" => "Tubercules consommés par les Amérindiens et parfois cultivés pour l’alimentation.\nUtilisée pour stabiliser les berges et favoriser la biodiversité aquatique.",
                     "CultivationCondition" => "Sol vaseux ou immergé sous quelques centimètres d’eau.\nExposition ensoleillée.\nSupporte bien les climats tempérés à chauds.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50158,
+                    'lngGPS' => -0.57204,
+                    'images' => [ "images/species/sagittaria_1.png", "images/species/sagittaria_2.png", "images/species/sagittaria_3.png" ]
                 ],
                 [
                     "LatinName" => "Iris fulva",
@@ -654,9 +654,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante vivace à rhizome produisant des fleurs rouge-cuivré.\nPousse naturellement dans les sols détrempés.\nAttire de nombreux pollinisateurs.",
                     "Utility" => "Utilisé comme plante ornementale pour embellir les zones aquatiques.\nStabilise les sols humides et lutte contre l’érosion des berges.",
                     "CultivationCondition" => "Sol humide, voire immergé.\nExposition soleil ou mi-ombre.\nArrosage constant en dehors des périodes de crue naturelle.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50155,
+                    'lngGPS' => -0.57172,
+                    'images' => [ "images/species/iris_1.png", "images/species/iris_2.png", "images/species/iris_3.png" ]
                 ]
             ]
         ],
@@ -673,9 +673,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petit arbre ou arbuste au feuillage persistant.\nÉcorce riche en quinine, un alcaloïde utilisé contre le paludisme.\nFleurs parfumées de couleur rose pâle.",
                     "Utility" => "Principalement utilisé pour l’extraction de la quinine, un remède contre la malaria.\nEmployé aussi pour ses propriétés fébrifuges et digestives.",
                     "CultivationCondition" => "Sol bien drainé, riche et légèrement acide.\nExposition mi-ombre à ensoleillée.\nClimat tropical humide avec arrosage modéré.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50109,
+                    'lngGPS' => -0.57275,
+                    'images' => [ "images/species/cinchona_1.png", "images/species/cinchona_2.png", "images/species/cinchona_3.png" ]
                 ],
                 [
                     "LatinName" => "Vanilla planifolia",
@@ -684,9 +684,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Liane orchidée à longues tiges grimpantes.\nFleurs jaune pâle produisant des gousses de vanille après pollinisation.\nNécessite un tuteur ou un arbre support pour se développer.",
                     "Utility" => "Source principale de la vanille naturelle utilisée en cuisine et parfumerie.\nExploité aussi en phytothérapie pour ses propriétés apaisantes.",
                     "CultivationCondition" => "Sol riche en humus, bien drainé et légèrement acide.\nExposition mi-ombre, sous couvert forestier.\nClimat chaud et humide, avec arrosage fréquent.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50099,
+                    'lngGPS' => -0.57241,
+                    'images' => [ "images/species/vanilla_1.png", "images/species/vanilla_2.png", "images/species/vanilla_3.png" ]
                 ],
                 [
                     "LatinName" => "Theobroma cacao",
@@ -695,9 +695,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Petit arbre tropical à grandes feuilles persistantes.\nFleurs petites et blanchâtres poussant directement sur le tronc.\nFruits en cabosses contenant les fèves de cacao.",
                     "Utility" => "Source du chocolat, produit à partir des fèves fermentées et séchées.\nUtilisé aussi en cosmétique et en médecine traditionnelle pour ses propriétés énergisantes.",
                     "CultivationCondition" => "Sol riche, bien drainé et humide.\nExposition mi-ombre, sous canopée.\nTempératures constantes entre 20 et 30°C avec forte humidité.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50097,
+                    'lngGPS' => -0.57287,
+                    'images' => [ "images/species/theobroma_1.png", "images/species/theobroma_2.png", "images/species/theobroma_3.png" ],
                     'quiz' => [
                         'question' => "Quelle partie du cacaoyer est utilisée pour produire du chocolat ?",
                         'answers' => [
@@ -726,9 +726,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbre majestueux pouvant atteindre 60 mètres de haut.\nTronc épineux et branches formant une large canopée.\nProduisant des fruits contenant des fibres soyeuses (kapok).",
                     "Utility" => "Bois utilisé pour la construction de pirogues et d’objets artisanaux.\nFibre de kapok employée pour le rembourrage des coussins et matelas.",
                     "CultivationCondition" => "Sol profond et bien drainé.\nExposition ensoleillée.\nClimat chaud et humide, supporte les périodes de sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50087,
+                    'lngGPS' => -0.57256,
+                    'images' => [ "images/species/ceiba_1.png", "images/species/ceiba_2.png", "images/species/ceiba_3.png" ]
                 ]
             ]
         ],
@@ -746,9 +746,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante grimpante à grandes fleurs bleues et blanches.\nFruits comestibles en forme de grenadille.\nPeut atteindre jusqu'à 10 mètres de hauteur.",
                     "Utility" => "Nourrit certaines espèces de papillons.\nCultivée aussi pour ses fleurs ornementales et ses fruits.",
                     "CultivationCondition" => "Sol bien drainé et légèrement acide.\nExposition ensoleillée ou partiellement ombragée.\nClimat tempéré à subtropical, avec arrosage modéré.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ],
+                    'latGPS' => 47.50051,
+                    'lngGPS' => -0.57163,
+                    'images' => [ "images/species/passiflora_1.png", "images/species/passiflora_2.png", "images/species/passiflora_3.png" ],
                     'quiz' =>
                     [
                         'question' => "Pourquoi la Passiflore bleue est-elle appréciée dans les jardins ?",
@@ -780,9 +780,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante vivace à fleurs colorées, généralement orange et jaune.\nAttire de nombreux pollinisateurs, notamment les papillons.",
                     "Utility" => "Attire les papillons monarques, qui pondent leurs œufs sur cette plante.\nUtilisée pour ses propriétés médicinales dans certaines cultures.",
                     "CultivationCondition" => "Sol bien drainé et fertile.\nExposition ensoleillée.\nClimat chaud et humide, avec arrosage modéré.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50046,
+                    'lngGPS' => -0.57165,
+                    'images' => [ "images/species/asclepias_1.png", "images/species/asclepias_2.png", "images/species/asclepias_3.png" ]
                 ],
                 [
                     "LatinName" => "Lantana camara",
@@ -791,9 +791,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Plante arbustive à fleurs multicolores en petites grappes.\nTrès résistante à la chaleur et aux sols pauvres.",
                     "Utility" => "Plante nectarifère pour les papillons, notamment les colibris.\nUtilisée également en haies décoratives.",
                     "CultivationCondition" => "Sol bien drainé, même sec.\nExposition ensoleillée.\nClimat chaud et sec, tolère les périodes de sécheresse.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50047,
+                    'lngGPS' => -0.57141,
+                    'images' => [ "images/species/lantana_1.png", "images/species/lantana_2.png", "images/species/lantana_3.png" ]
                 ],
                 [
                     "LatinName" => "Buddleja davidii",
@@ -802,9 +802,9 @@ class InitFixtures extends Fixture
                     "Characteristics" => "Arbuste ou petit arbre produisant des fleurs parfumées de couleur violette, blanche ou rose.\nTrès attractif pour les papillons.",
                     "Utility" => "Attire de nombreux papillons avec ses fleurs.\nUtilisé comme plante ornementale dans les jardins.",
                     "CultivationCondition" => "Sol bien drainé et légèrement alcalin.\nExposition ensoleillée.\nClimat tempéré, avec arrosage modéré.",
-                    'latGPS' => 0,
-                    'lngGPS' => 0,
-                    'images' => [ "images/prof-removebg-reverse.png" ]
+                    'latGPS' => 47.50042,
+                    'lngGPS' => -0.57145,
+                    'images' => [ "images/species/buddleja_1.png", "images/species/buddleja_2.png", "images/species/buddleja_3.png" ]
                 ]
             ]
         ]

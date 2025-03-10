@@ -14,7 +14,7 @@ class Settings
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $language = null;
+    private string $language = "fr";
 
     #[ORM\OneToOne(mappedBy: 'settings', cascade: ['persist', 'remove'])]
     private ?User $user = null;
@@ -24,7 +24,7 @@ class Settings
         return $this->id;
     }
 
-    public function getLanguage(): ?string
+    public function getLanguage(): string
     {
         return $this->language;
     }

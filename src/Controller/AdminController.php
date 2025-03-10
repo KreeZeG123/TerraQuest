@@ -16,6 +16,7 @@ use App\Form\QuizType;
 use App\Form\SpeciesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,6 +83,14 @@ final class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->has("imageFile")) {
+                /**
+                 * @var $imageFile UploadedFile
+                 */
+                $imageFile = $form->get('imageFile')->getData();
+            }
+
             $this->entityManager->persist($entity);
             $this->entityManager->flush();
             $this->addFlash('success', 'L\'entité a été enregistrée avec succès.');

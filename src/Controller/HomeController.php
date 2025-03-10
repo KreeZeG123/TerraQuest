@@ -26,7 +26,19 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        /**
+         * @var $user User
+         */
+        $user = $this->getUser();
+
+        $profilePicture = "images/default_profile_picture.png";
+        if ($user) {
+            $profilePicture = $user->getProfilePicture();
+        }
+
+        return $this->render('home/index.html.twig', [
+            'profilePicture' => $profilePicture
+        ]);
     }
 
     #[Route('/explication', name: 'explanation')]
@@ -46,6 +58,8 @@ final class HomeController extends AbstractController
          * @var $user User
          */
         $user = $this->getUser();
+        $username = $user->getUsername();
+        $profilePicture = $user->getProfilePicture();
 
         $badges = $badgeRepository->findAll();
 
@@ -90,7 +104,9 @@ final class HomeController extends AbstractController
 
         return $this->render('home/account.html.twig', [
             'badges' => $badgesDTO,
-            'glossary' => $glossaryDTO
+            'glossary' => $glossaryDTO,
+            'profilePicture' => $profilePicture,
+            'username' => $username
         ]);
     }
 

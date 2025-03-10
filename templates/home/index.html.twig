@@ -9,7 +9,7 @@
 {% block body %}
     <nav class="navbar fixed-top justify-content-between px-5 py-3">
         <a href="{{ path('account', { tgPath: app.request.uri|url_encode }) }}" class="profile-picture">
-            <img src="{{ asset('images/default_profile_picture.png') }}" alt="Profile Picture">
+            <img src="{{ asset( profilePicture ) }}" alt="Profile Picture">
         </a>
         <a href="{{ path('settings', { tgPath: app.request.uri|url_encode }) }}" class="btn btn-light">Paramètres</a>
     </nav>

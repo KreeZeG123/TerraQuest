@@ -18,10 +18,10 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="username">Email</label>
+            <h1 class="h3 mb-3 font-weight-normal">Se Connecter</h1>
+            <label for="username">Email ou Nom d'utilisateur</label>
             <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-            <label for="password">Password</label>
+            <label for="password">Mot de passe</label>
             <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
             <input type="hidden" name="_csrf_token"
@@ -30,13 +30,15 @@
 
             <div class="checkbox mb-3">
                 <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+                <label for="_remember_me">Se souvenir de moi</label>
             </div>
 
 
             <button class="btn btn-lg btn-primary" type="submit">
-                Sign in
+                Se Connecter
             </button>
+
+            <a href="{{ path('app_register', {tgPath: targetPath} ) }}" class="btn btn-lg btn-primary">S'Inscrire</a>
         </form>
     </main>
 {% endblock %}
